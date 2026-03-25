@@ -1,0 +1,117 @@
+.main {
+    font-family: 'Oxygen', sans-serif;
+}
+
+.main p {
+    font-size: 17pt;
+}
+
+.main body {
+    background-color: #aaa;
+}
+
+.main table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    font-size: 15pt;
+}
+
+.main table {
+    width: 770px;
+}
+
+.main td {
+    text-align: center;
+}
+
+.main {
+    background-color: #fff;
+    width: 1200px;
+    height: 1414px;
+    margin-top: 10px;
+    margin-bottom: 25px;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid black;
+    box-shadow: 10px 20px 5px black;
+    padding: 60px;
+    color: #000000;
+}
+
+@media print {
+    .main { border: none; box-shadow: none; padding: 0; }
+}
+
+.main #head h1 {
+    font-size: 37pt;
+    text-align: right;
+}
+
+.main #head h2 {
+    font-size: 30pt;
+}
+
+.main #head img {
+    width: 330px;
+    float: right;
+}
+
+.main .section {
+    margin-top: 15px;
+}
+
+.main .section h3 {
+    -webkit-border-top-right-radius: 50px;
+    -webkit-border-bottom-right-radius: 50px;
+    -moz-border-radius-topright: 50px;
+    -moz-border-radius-bottomright: 50px;
+    border-top-right-radius: 50px;
+    border-bottom-right-radius: 50px;
+    background-color: #555;
+    color: white;
+    font-size: 25pt;
+    padding-left: 10px;
+    margin-top: 40px;
+}
+
+@media print {
+    .section h3 {
+        color: black;
+    }
+}
+
+.main .entry {
+    margin-top: 20px;
+}
+
+.main .section .timespan, .techgroup {
+    color: #555;
+    width: 200px;
+    float: left;
+    text-align: right;
+}
+
+.main .badge {
+    height: 90px;
+    width: 90px;
+}
+
+.main .section .content {
+    margin-left: 230px;
+}
+
+.main .icon {
+    height: 28px;
+    width: 28px;
+    float: left;
+    margin-right: 10px;
+}
+
+.main .info {
+    margin-bottom: 10px;
+}
+
+.main a {
+    color: #646cff;
+    text-decoration: none;
+}

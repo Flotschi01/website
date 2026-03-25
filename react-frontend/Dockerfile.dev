@@ -1,0 +1,11 @@
+# Simple dev image for React (Vite)
+FROM node:22-alpine3.18
+
+WORKDIR /app
+# Copy package files and install deps
+COPY package*.json ./
+RUN npm install
+
+# Default command (will be overridden in compose)
+#CMD ["npm", "run", "dev"]
+CMD ["/usr/local/bin/npm", "run", "dev"]

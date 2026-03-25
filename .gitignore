@@ -1,0 +1,23 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build outputs
+dist/
+build/
+.next/
+
+# Environment variables (Never commit secrets!)
+.env
+.env.local
+.env.production
+
+# Docker
+.docker/
+
+# PocketBase Data (VERY IMPORTANT)
+# Assuming your pocketbase acts as a persistent volume
+pocketbase/pb_data/
+pb_migrations/ 
+# Keep migrations if you want to version control schema changes, 
+# but ignore pb_data to prevent overwriting live data.

@@ -1,0 +1,12 @@
+services:
+  react-frontend:
+    container_name: react-frontend
+    build:
+      args:
+        - VITE_PB_URL=https://pb.lehmsys.com  # Use the public API URL for production
+      context: ./react-frontend
+      dockerfile: Dockerfile
+    restart: always
+    # Expose the internal Nginx to the host
+    ports:
+      - "5173:80" 
