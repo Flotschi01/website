@@ -13,25 +13,17 @@ const Footer: React.FC<FooterProps> = ({ className = "" }) => {
         
         {/* Brand & Version */}
         <div className="text-center md:text-left">
-          <h2 className="text-xl font-bold text-primary mb-1">lehmsys.com</h2>
+          <h2 className="text-xl font-bold text-primary mb-1">Verein Linmezis</h2>
           <p className="text-fg/60 text-sm">
-            &copy; {currentYear} Florian Lehmerhofer • <span className="font-mono">V1.1</span>
+            &copy; {currentYear} Eveline Höllerer • <span className="font-mono">V1.1</span>
           </p>
         </div>
 
         {/* Navigation Links */}
         <nav className="flex flex-wrap justify-center gap-x-8 gap-y-2 text-sm font-medium text-fg/80">
-          <a href="/" className="hover:text-secondary transition-colors">Home</a>
-          <a href="/projects" className="hover:text-secondary transition-colors">Projects</a>
+          <a href="#" className="hover:text-secondary transition-colors">Facebook</a>
+          <a href="#" className="hover:text-secondary transition-colors">Telephon: +43 660 123 4567</a>
           <a href="/cv" className="hover:text-secondary transition-colors">About</a>
-          <a 
-            href="https://github.com/flotschi01" 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            className="hover:text-secondary transition-colors"
-          >
-            GitHub
-          </a>
         </nav>
 
       </div>

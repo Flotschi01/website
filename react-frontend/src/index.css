@@ -3,30 +3,22 @@
 /*@import 'tailwindcss/typography'*/
 
 @theme {
-  --color-bg: #91E5F6;
-  --color-fg: #141f1f;
-  --color-primary: #802392;
-  --color-secondary: #007FFF;
 
-  --color-bg: #c9c9c9;
+  --color-bg: #fefae0;
   --color-fg: #000000;
-  --color-primary: #FFC145;
-  --color-secondary: #A50104;
+  --color-primary: #8aba8e;
+  --color-secondary: #fc94ea;
 
-  --color-bg: #102B3F;
-  --color-fg: #FDFFFF;
-  --color-primary: #A30B37;
-  --color-secondary: #BD6B73;
-
-  --color-bg: #420039;
-  --color-fg: #DCCCFF;
-  --color-primary: #E07BE0;
-  --color-secondary: #932F6D;
-
-  --color-bg: #17181c;
-  --color-fg: #fdffff;
-  --color-primary: #f5d033;
-  --color-secondary: #d81e5b;
+  
+  --color-primary: #1DA1F2;
+  --color-secondary: #14171A;
+  --color-accent: #657786;
+  --color-background: #F5F8FA;
+  --color-text: #14171A;
+  --color-text-light: #657786;
+  --color-btn-primary: #1DA1F2;
+  --color-btn-primary-hover: #0C85D0;
+  --color-border: #E1E8ED;
   /**/  
 }
 

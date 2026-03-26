@@ -4,7 +4,6 @@ import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import Projects from "./pages/Projects";
 import Posts from "./pages/Posts";
-import Cv from "./pages/Cv";
 export default function App() {
   return (
     <Router>
@@ -15,8 +14,6 @@ export default function App() {
             <Route path="/" element={<Home />} />
             <Route path="/projects" element={<Projects />} />
             <Route path="/posts" element={<Posts />} />
-            <Route path="/cv" element={<Cv />} />
-
           </Routes>
         </main>
         <Footer />
