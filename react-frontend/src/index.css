@@ -1,27 +1,50 @@
 @import "tailwindcss";
-@import './markdown.css';
 /*@import 'tailwindcss/typography'*/
 
 @theme {
-
+  /*original*/
   --color-bg: #fefae0;
   --color-fg: #000000;
   --color-primary: #8aba8e;
   --color-secondary: #fc94ea;
+  /*fixed beige*/
+
+  --color-bg: #f7faf8;
+  --color-fg: #1a1a1a;
+  --color-primary: #8aba8e;
+  --color-secondary: #fc94ea;
+  /*slightly darker primary*/
+
+  --color-bg: #f0f4f1;
+  --color-fg: #121412;
+  --color-primary: #8aba8e;
+  --color-secondary: #fc94ea;
+  /*gold*/
+--color-bg: #f8f9fa;
+  --color-fg: #1e1e1e;
+  --color-primary: #d4af37; /* Metallic Gold */
+  --color-secondary: #fc94ea; /* Your Pink */
+  /*pyrite gold*/
+  --color-bg: #fdf5f8;
+  --color-fg: #2b2b2b;
+  --color-primary: #b8860b; /* Darker Gold for contrast */
+  --color-secondary: #fc94ea; /* Your Pink */
 
   
-  --color-primary: #1DA1F2;
-  --color-secondary: #14171A;
-  --color-accent: #657786;
-  --color-background: #F5F8FA;
-  --color-text: #14171A;
-  --color-text-light: #657786;
-  --color-btn-primary: #1DA1F2;
-  --color-btn-primary-hover: #0C85D0;
-  --color-border: #E1E8ED;
+  --admin-color-primary: #1877F2; /* Facebook Blue */
+  --admin-color-primary-hover: #166FE5;
+  --admin-color-background: #F0F2F5; /* Standard app background */
+  --admin-color-surface: #FFFFFF; /* Card background */
+  --admin-color-text: #050505; /* Main text */
+  --admin-color-muted: #65676B; /* Secondary text/icons */
+  --admin-color-border: #CED0D4; /* Dividers */
   /**/  
+  
 }
-
+body {
+  background-color: var(--admin-color-background);
+  color: var(--admin-color-text);
+}
 :root {
 
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;

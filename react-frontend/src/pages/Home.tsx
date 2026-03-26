@@ -1,237 +1,98 @@
 
-import { useEffect, useState, useRef } from "react";
-import PocketBase from "pocketbase";
-
-interface ProjectRecord {
-  id: string;
-  Title: string;
-  description: string;
-  MarkdownContent: string;
-  Image?: string[];
-  ProjectID?: number;
-}
-interface Blog {
-  id: string;
-  title?: string;
-  description: string;
-  pictures?: string[]; // URLs for images
-  md_content?: string;
-}
+//import { useEffect, useState, useRef } from "react";
+import Hero from '../components/Hero';
 
 
 export default function Home() {
-  const [projects, setProjects] = useState<ProjectRecord[]>([]);
-  const [blogs, setBlogs] = useState<Blog[]>([]);
-const hasFetchedRefProject = useRef(false);
-const hasFetchedRefBlog = useRef(false);
-
-
-  const pb = new PocketBase(import.meta.env.VITE_PB_URL);
-
-useEffect(() => {
-  if (!hasFetchedRefProject.current) {
-    fetchProjects();
-    hasFetchedRefProject.current = true;
-  }
-}, []);
-
-const fetchProjects = async () => {
-  try {
-    console.log("Loading projects..." + import.meta.env.VITE_PB_URL);
-    const result = await pb.collection("projects").getFullList<ProjectRecord>({
-      sort: "ProjectID"
-    });
-    setProjects(result);
-  } catch (err) {
-    console.error("Failed loading projects", err);
-  }
-};
-
-
-useEffect(() => {
-  if (!hasFetchedRefBlog.current) {
-    getPosts();
-    hasFetchedRefBlog.current = true;
-  }
-}, []);
-
-const getPosts = async () => {
-  try {
-    console.log("Loading projects..." + import.meta.env.VITE_PB_URL);
-    const result = await pb.collection("blogs").getFullList<Blog>();
-    setBlogs(result);
-  } catch (err) {
-    console.error("Failed loading projects", err);
-  }
-};
-
   return (
     <div className="bg-bg text-fg min-h-screen">
-
-      {/* Hero Section */}
-      <section className="max-w-5xl mx-auto px-4 py-20 text-center">
-        <h1 className="text-5xl font-extrabold mb-6 text-primary">
-          Welcome to MySite
-        </h1>
-
-        <p className="text-xl max-w-2xl mx-auto mb-10 text-fg/80">
-          A place where I share my projects, and ideas.
-          The website is built with React, TypeScript, and Tailwind CSS. 
-        </p>
-
-        <div className="flex justify-center gap-4">
-          <a
-            href="/projects"
-            className="
-              px-6 py-3 rounded-lg font-medium 
-              bg-primary text-bg
-              hover:bg-secondary
-              transition-colors
-            "
-          >
-            View Projects
-          </a>
-
-          <a
-            href="/posts"
-            className="
-              px-6 py-3 rounded-lg font-medium 
-              border border-primary 
-              text-primary
-              hover:text-secondary hover:border-secondary
-              transition-colors
-            "
-          >
-            Read Posts
-          </a>
+      <Hero />
+      {/* --- SECTION 2: FEATURES (Visualizing primary/secondary grid) --- */}
+      <section className="py-24 px-6 max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+          {[1, 2, 3].map((i) => (
+            <div key={i} className="group p-8 rounded-3xl bg-fg/5 border border-fg/10 hover:border-primary/50 transition">
+              <div className={`w-12 h-12 rounded-lg mb-6 flex items-center justify-center ${i === 2 ? 'bg-secondary' : 'bg-primary'}`}>
+                <div className="w-6 h-6 bg-bg rounded-sm" />
+              </div>
+              <h3 className="text-2xl font-bold mb-4">Feature Segment {i}</h3>
+              <p className="text-fg/60 leading-relaxed">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut aliquid scire se gaudeant? 
+                Hoc est non modo cor non habere, sed ne palatum quidem.
+              </p>
+            </div>
+          ))}
         </div>
-        
-      </section>  
-            <section className="max-w-5xl mx-auto px-4 py-20 border-t border-fg/10 text-center">
-        <h1 className="text-5xl font-extrabold mb-6 text-secondary">
-          For Firends and Family
-        </h1>
-
-        <p className="text-xl max-w-2xl mx-auto mb-10 text-fg/80">
-          Hier findet ihr die Links zu Nextcloud, Jellyfin und Co!<br></br>
-          Benutzer sind immer vorname in klein
-        </p>
-
-        <div className="flex justify-center gap-4">
-          <a
-            href="https://nextcloud.lehmsys.com"
-            className="
-              px-6 py-3 rounded-lg font-medium 
-              border border-sky-600 
-              text-sky-600
-              hover:text-sky-800 hover:border-sky-800
-              transition-colors
-            "
-          >
-            To Nextcloud
-            <img src="nextcloud.svg" alt="Nextcloud" className="inline-block w-5 h-5 ml-2" />
-          </a>
-
-          <a
-            href="https://jellyfin.lehmsys.com"
-            className="
-              px-6 py-3 rounded-lg font-medium 
-              border border-violet-500 
-              text-violet-500
-              hover:text-violet-700 hover:border-violet-700
-              transition-colors
-            "
-          >
-            To Jellyfin
-            <img src="jellyfin.webp" alt="Jellyfin" className="inline-block w-5 h-5 ml-2" />
-          </a>
-        </div>
-        
       </section>
 
-      {/* Feature Cards */}
-      <section className="max-w-5xl mx-auto px-4 py-16 grid gap-8 md:grid-cols-3">
-
-<div className="p-6 rounded-xl shadow border border-fg/10 bg-bg">
-  {projects.length > 0 && (
-    (() => {
-      const p = projects[Math.random() * projects.length | 0]; // Randomly select a project
-      // Optional: clean up markdown or truncate for a short snippet
-      const description = p.description
-
-      return (
-        <div key={p.id}>
-          {/* Project Title */}
-          <h3 className="text-2xl font-bold text-primary mb-3">
-            {p.Title}
-          </h3>
-
-          {/* Project Snippet */}
-          <p className="mb-4 text-fg/80 line-clamp-3">
-            {description}
-          </p>
-
-          {/* Link to the specific project or the main gallery */}
-          <a
-            href={`/projects`}
-            className="text-secondary font-medium hover:underline"
-          >
-            View Project Details →
-          </a>
+      {/* --- SECTION 3: BENTO BOX DISPLAY --- */}
+      <section className="py-24 px-6 max-w-7xl mx-auto">
+        <h2 className="text-4xl font-bold mb-12 text-center">Platform Showcase</h2>
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 auto-rows-[300px]">
+          <div className="md:col-span-2 bg-primary/20 rounded-3xl border border-primary/30 p-8 flex flex-col justify-end">
+            <h4 className="text-primary text-2xl font-bold">Integrated Logic</h4>
+            <p className="text-fg/80">Lorem ipsum dolor sit amet consectetur.</p>
+          </div>
+          <div className="bg-secondary/20 rounded-3xl border border-secondary/30 p-8">
+            <div className="h-full w-full bg-secondary/20 animate-pulse rounded-xl" />
+          </div>
+          <div className="bg-fg/5 rounded-3xl border border-fg/10 p-8">
+             <span className="text-4xl font-black text-fg/20">01</span>
+          </div>
+          <div className="bg-fg/5 rounded-3xl border border-fg/10 p-8">
+             <span className="text-4xl font-black text-fg/20">02</span>
+          </div>
+          <div className="md:col-span-3 bg-gradient-to-r from-primary to-secondary rounded-3xl p-1 flex items-center">
+            <div className="bg-bg w-full h-full rounded-[22px] p-8 flex items-center justify-between">
+               <h3 className="text-3xl font-bold">The Hybrid Experience</h3>
+               <button className="bg-fg text-bg px-6 py-2 rounded-lg font-bold">Explore</button>
+            </div>
+          </div>
         </div>
-      );
-    })()
-  )}
-</div>
-<div className="p-6 rounded-xl shadow border border-fg/10 bg-bg">
-  {blogs.length > 0 && (
-    (() => {
-      const p = blogs[Math.random() * blogs.length | 0]; // Randomly select a blog post
-      // Optional: clean up markdown or truncate for a short snippet
-      const description = p.description
-      return (
-        <div key={p.id}>
-          {/* Project Title */}
-          <h3 className="text-2xl font-bold text-primary mb-3">
-            {p.title}
-          </h3>
-
-          {/* Project Snippet */}
-          <p className="mb-4 text-fg/80 line-clamp-3">
-            {description}
-          </p>
-
-          {/* Link to the specific project or the main gallery */}
-          <a
-            href={`/posts`}
-            className="text-secondary font-medium hover:underline"
-          >
-            View Blog Post →
-          </a>
-        </div>
-      );
-    })()
-  )}
-</div>
-
-        <div className="p-6 rounded-xl shadow border border-fg/10 bg-bg">
-          <h3 className="text-2xl font-bold text-primary mb-3">
-            About Me
-          </h3>
-          <p className="mb-4 text-fg/80">
-            Learn more about my background, experience, interests
-          </p>
-          <a
-            href="/cv"
-            className="text-secondary font-medium hover:underline"
-          >
-            My Cv →
-          </a>
-        </div>
-
       </section>
 
+      {/* --- SECTION 4: STATS (The "Big Number" Showcase) --- */}
+      <section className="bg-primary py-20 px-6">
+        <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+          <div>
+            <div className="text-5xl font-black text-bg">99%</div>
+            <div className="text-bg/70 uppercase tracking-widest text-xs font-bold mt-2">Uptime</div>
+          </div>
+          <div>
+            <div className="text-5xl font-black text-bg">250k</div>
+            <div className="text-bg/70 uppercase tracking-widest text-xs font-bold mt-2">Users</div>
+          </div>
+          <div>
+            <div className="text-5xl font-black text-bg">12ms</div>
+            <div className="text-bg/70 uppercase tracking-widest text-xs font-bold mt-2">Latency</div>
+          </div>
+          <div>
+            <div className="text-5xl font-black text-bg">Free</div>
+            <div className="text-bg/70 uppercase tracking-widest text-xs font-bold mt-2">Open Source</div>
+          </div>
+        </div>
+      </section>
 
+      {/* --- SECTION 5: CONTENT HEAVY LOREM --- */}
+      <section className="py-24 px-6 max-w-4xl mx-auto">
+        <h2 className="text-4xl font-bold mb-8">Detailed Philosophy</h2>
+        <div className="space-y-6 text-lg text-fg/70 leading-loose">
+          <p>
+            <span className="text-primary font-bold">Lorem ipsum dolor sit amet</span>, consectetur adipiscing elit. 
+            Primum Theophrasti, Strato, physicum se voluit; in quo etsi est 
+            multum admodum fortunae, tamen est velit.
+          </p>
+          <blockquote className="border-l-4 border-secondary pl-6 py-2 italic text-fg">
+            "Hoc est non modo cor non habere, sed ne palatum quidem. Non enim hanc 
+            solitudinem intellegere possumus."
+          </blockquote>
+          <p>
+            Quid ad utilitatem tantae pecuniae? Videsne, ut quibus summa est in 
+            voluptate, hi cum solitudine aliquid etiam velle videantur? 
+            An vero displicuit ea, quae secundum naturam sunt?
+          </p>
+        </div>
+      </section>
     </div>
   );
-}
+};
