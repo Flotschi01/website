@@ -85,7 +85,7 @@ export default function CollectionFeed({ config }: Props) {
 
             {config.hasImage && record.image && (
               <img 
-                src={`${pb.baseURL}/api/files/${config.id}/${record.id}/${record.image}`} 
+                src={`${pb.baseUrl}/api/files/${config.id}/${record.id}/${record.image}`} 
                 alt="attachment" 
                 className="mt-4 rounded-lg w-full max-h-96 object-cover border border-border"
               />
