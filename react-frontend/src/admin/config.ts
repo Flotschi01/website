@@ -7,7 +7,7 @@ export interface CollectionConfig {
 }
 
 export const adminCollections: CollectionConfig[] = [
-  { id: 'home_posts', label: 'Home Page', textField: 'content', hasImage: true },
+  { id: 'landing_pages', label: 'Home Page', textField: 'content', hasImage: true },
   { id: 'articles', label: 'Articles', textField: 'body', hasImage: true, hasTitle: true },
   { id: 'flyers', label: 'Flyers', textField: 'description', hasImage: true },
 ];
