@@ -3,7 +3,7 @@ services:
     container_name: react-frontend
     build:
       args:
-        - VITE_PB_URL=https://pb.lehmsys.com  # Use the public API URL for production
+        - VITE_PB_URL=https://evepb.lehmsys.com  # Use the public API URL for production
       context: ./react-frontend
       dockerfile: Dockerfile
     restart: always
