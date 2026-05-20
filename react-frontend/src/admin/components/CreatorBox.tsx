@@ -82,7 +82,7 @@ export default function CreatorBox({ config, onCreated }: Props) {
                 className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-background text-muted font-medium transition-colors"
               >
                 <ImageIcon size={20} className="text-green-500" />
-                <span>Add Media</span>
+                <span>Foto hinzufügen</span>
               </button>
             </>
           )}

@@ -7,36 +7,46 @@ interface LandingRecord {
   collectionId: string;
   collectionName: string;
   title: string;
-  hero_image: string;
+  image: string;
   order: number;
+}
+
+interface HeroProps {
+  textMap: Record<string, string>; // Receives centralized text layout object from Home
 }
 
 const INTERVAL_MS = 6000;
 const TRANSITION_MS = 800;
 
-const Hero: React.FC = () => {
+const Hero: React.FC<HeroProps> = ({ textMap }) => {
   const [records, setRecords] = useState<LandingRecord[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [nextIndex, setNextIndex] = useState<number | null>(null);
   const [sliding, setSliding] = useState(false);
   const [direction, setDirection] = useState<'right' | 'left'>('right');
-  const hasFetchedRef = useRef(false);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  useEffect(() => {
-    if (!hasFetchedRef.current) {
-      hasFetchedRef.current = true;
-      pb.collection('landing_pages')
-        .getFullList<LandingRecord>({ sort: 'order' })
-        .then(setRecords)
-        .catch(console.error);
+  // Optimized fetching logic using standard strict-mode protection rules
+  const fetchLandingData = useCallback(async () => {
+    try {
+      const data = await pb.collection('landing_pages').getFullList<LandingRecord>({ 
+        sort: 'order',
+        requestKey: null 
+      });
+      setRecords(data);
+    } catch (err: any) {
+      if (err.isAbort) return;
+      console.error("Error loading landing images:", err);
     }
   }, []);
+
+  useEffect(() => {
+    fetchLandingData();
+  }, [fetchLandingData]);
 
   const goTo = useCallback((next: number, dir: 'right' | 'left') => {
     if (sliding) return;
 
-    // Reset auto-advance timer
     if (timerRef.current) clearInterval(timerRef.current);
 
     setDirection(dir);
@@ -50,7 +60,6 @@ const Hero: React.FC = () => {
     }, TRANSITION_MS);
   }, [sliding]);
 
-  // Auto-advance
   useEffect(() => {
     if (records.length < 2) return;
     timerRef.current = setInterval(() => {
@@ -73,7 +82,7 @@ const Hero: React.FC = () => {
     goTo(n, 'right');
   };
 
-  const getUrl = (r: LandingRecord) => pb.files.getUrl(r, r.hero_image);
+  const getUrl = (r: LandingRecord) => pb.files.getUrl(r, r.image);
 
   if (records.length === 0) {
     return <div className="flex h-screen items-center justify-center text-white">Loading...</div>;
@@ -90,7 +99,7 @@ const Hero: React.FC = () => {
           to   { transform: translateX(0); }
         }
         @keyframes slideOut {
-          from { transform: translateX(0); }
+          from { transform: ${slideOutTo}; }
           to   { transform: ${slideOutTo}; }
         }
         .slide-in  { animation: slideIn  ${TRANSITION_MS}ms ease-in-out forwards; }
@@ -98,15 +107,12 @@ const Hero: React.FC = () => {
       `}</style>
 
       <div className="relative h-screen w-full overflow-hidden">
-
-        {/* Current image — slides out */}
         <div
           key={`current-${currentIndex}`}
           className={`absolute inset-0 bg-cover bg-center ${sliding ? 'slide-out' : ''}`}
           style={{ backgroundImage: `url(${getUrl(records[currentIndex])})` }}
         />
 
-        {/* Incoming image — slides in */}
         {nextIndex !== null && (
           <div
             key={`next-${nextIndex}`}
@@ -115,20 +121,18 @@ const Hero: React.FC = () => {
           />
         )}
 
-        {/* Overlay */}
         <div className="absolute inset-0 bg-black/50 z-10" />
 
-        {/* Content */}
+        {/* --- DYNAMIC OVERLAY CONTENT BOX --- */}
         <div className="relative z-20 flex h-full flex-col items-center justify-center px-4 text-center text-white">
-          <h1 className="mb-4 text-4xl font-bold tracking-tight md:text-7xl">
-            Hast du dich schon mal gefragt, was dein Moser denkt?
+          <h1 className="mb-4 text-4xl font-bold tracking-tight md:text-7xl max-w-5xl">
+            {textMap['Start Text'] || 'Hast du dich schon mal gefragt, was dein Moser denkt?'}
           </h1>
-          <p className="mb-8 max-w-2xl text-lg md:text-xl text-gray-200">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi quam nostrum officia aliquam a ut dignissimos.
+          <p className="mb-8 max-w-2xl text-lg md:text-xl text-gray-200 whitespace-pre-wrap">
+            {textMap['Untertitel'] || 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi quam nostrum officia aliquam a ut dignissimos.'}
           </p>
         </div>
 
-        {/* Prev / Next arrows */}
         {records.length > 1 && (
           <>
             <button
@@ -146,7 +150,6 @@ const Hero: React.FC = () => {
           </>
         )}
 
-        {/* Dot indicators */}
         {records.length > 1 && (
           <div className="absolute bottom-10 z-30 flex gap-2 left-1/2 -translate-x-1/2">
             {records.map((_, i) => (
@@ -159,7 +162,6 @@ const Hero: React.FC = () => {
             ))}
           </div>
         )}
-
       </div>
     </>
   );

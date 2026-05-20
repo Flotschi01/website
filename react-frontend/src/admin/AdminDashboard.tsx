@@ -67,7 +67,7 @@ export default function AdminDashboard() {
       <main className="flex-1 p-4 md:p-8 overflow-y-auto">
         <div className="mb-6 max-w-2xl mx-auto">
           <h2 className="text-2xl font-bold text-[var(--admin-color-text)]">{activeConfig.label}</h2>
-          <p className="text-[var(--admin-color-muted)] text-sm">Create and manage your {activeConfig.label.toLowerCase()} entries.</p>
+          <p className="text-[var(--admin-color-muted)] text-sm">Verwalte deine {activeConfig.label.toLowerCase()} Einträge.</p>
         </div>
         
         {/* Pass a key so React completely remounts the component when switching tabs */}

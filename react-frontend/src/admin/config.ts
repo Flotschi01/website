@@ -4,10 +4,11 @@ export interface CollectionConfig {
   textField: string;   // The main text field name in PB (e.g., 'content', 'body')
   hasImage: boolean;   // Whether this collection supports image uploads
   hasTitle?: boolean;  // Whether it needs a separate title field
+  isUpdateOnly?: boolean; // 👈 Add this line
 }
 
 export const adminCollections: CollectionConfig[] = [
-  { id: 'landing_pages', label: 'Home Page', textField: 'content', hasImage: true },
-  { id: 'articles', label: 'Articles', textField: 'body', hasImage: true, hasTitle: true },
+  { id: 'landing_pages', label: 'Start Fotos', textField: 'content', hasImage: true },
+  { id: 'texts', label: 'Texte', textField: 'text', hasImage: false, hasTitle: true, isUpdateOnly: true },
   { id: 'flyers', label: 'Flyers', textField: 'description', hasImage: true },
 ];

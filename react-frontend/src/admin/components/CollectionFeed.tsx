@@ -15,9 +15,13 @@ export default function CollectionFeed({ config }: Props) {
 
   const fetchRecords = useCallback(async () => {
     try {
-      const data = await pb.collection(config.id).getFullList({ sort: '-created' });
+      const data = await pb.collection(config.id).getFullList({ 
+        sort: '-created',
+        requestKey: null 
+      });
       setRecords(data);
-    } catch (err) {
+    } catch (err: any) {
+      if (err.isAbort) return;
       console.error(`Error fetching ${config.id}:`, err);
     }
   }, [config.id]);
@@ -40,7 +44,8 @@ export default function CollectionFeed({ config }: Props) {
 
   return (
     <div className="max-w-2xl mx-auto">
-      <CreatorBox config={config} onCreated={fetchRecords} />
+      {/* 1. Hide CreatorBox if the collection is Update Only */}
+      {!config.isUpdateOnly && <CreatorBox config={config} onCreated={fetchRecords} />}
 
       <div className="space-y-4">
         {records.map((record) => (
@@ -55,9 +60,13 @@ export default function CollectionFeed({ config }: Props) {
                 <button onClick={() => { setEditingId(record.id); setEditText(record[config.textField]); }} className="p-1.5 text-muted hover:text-primary rounded">
                   <Edit3 size={18} />
                 </button>
-                <button onClick={() => handleDelete(record.id)} className="p-1.5 text-muted hover:text-red-500 rounded">
-                  <Trash2 size={18} />
-                </button>
+                
+                {/* 2. Hide Delete button if the collection is Update Only */}
+                {!config.isUpdateOnly && (
+                  <button onClick={() => handleDelete(record.id)} className="p-1.5 text-muted hover:text-red-500 rounded">
+                    <Trash2 size={18} />
+                  </button>
+                )}
               </div>
             </div>
 
