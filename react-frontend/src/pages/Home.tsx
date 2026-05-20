@@ -134,7 +134,7 @@ export default function Home() {
           <h3 className="text-3xl font-bold">
             {t('Möglichkeiten Box', 'The Hybrid Experience')}
           </h3>
-          <button className="bg-fg text-bg px-6 py-2 rounded-lg font-bold">
+          <button className="bg-fg text-bg px-6 py-2 rounded-lg font-bold" onClick={() => window.location.href = '/offers'}>
             hier
           </button>
       </div>
