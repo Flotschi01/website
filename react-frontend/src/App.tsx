@@ -4,6 +4,7 @@ import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import AdminDashboard from "./admin/AdminDashboard";
 import News from "./pages/News";
+import Offers from "./pages/Offers";
 export default function App() {
   return (
     <Router>
@@ -13,6 +14,7 @@ export default function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/news" element={<News />} />
+            <Route path="/offers" element={<Offers />} />
             <Route path="/admin" element={<AdminDashboard />} />
           </Routes>
         </main>

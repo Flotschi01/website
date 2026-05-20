@@ -1,8 +1,8 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback, useRef } from 'react';
 import type { CollectionConfig } from '../config';
 import pb from "../../lib/pocketbase";
 import CreatorBox from './CreatorBox';
-import { Trash2, Edit3, X, Check } from 'lucide-react';
+import { Trash2, Edit3, X, Check, Image as ImageIcon } from 'lucide-react';
 
 interface Props {
   config: CollectionConfig;
@@ -12,6 +12,8 @@ export default function CollectionFeed({ config }: Props) {
   const [records, setRecords] = useState<any[]>([]);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editText, setEditText] = useState('');
+  const [editFile, setEditFile] = useState<File | null>(null); // 👈 Track file changes
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const fetchRecords = useCallback(async () => {
     try {
@@ -37,14 +39,31 @@ export default function CollectionFeed({ config }: Props) {
   };
 
   const handleUpdate = async (id: string) => {
-    await pb.collection(config.id).update(id, { [config.textField]: editText });
+    // PocketBase handles files seamlessly via standard FormData API
+    const formData = new FormData();
+    formData.append(config.textField, editText);
+    
+    if (config.hasImage && editFile) {
+      formData.append('image', editFile); // Appends binary file directly under the key 'image'
+    }
+
+    try {
+      await pb.collection(config.id).update(id, formData);
+      setEditingId(null);
+      setEditFile(null);
+      fetchRecords();
+    } catch (err) {
+      console.error("Error updating record:", err);
+    }
+  };
+
+  const handleCancel = () => {
     setEditingId(null);
-    fetchRecords();
+    setEditFile(null);
   };
 
   return (
     <div className="max-w-2xl mx-auto">
-      {/* 1. Hide CreatorBox if the collection is Update Only */}
       {!config.isUpdateOnly && <CreatorBox config={config} onCreated={fetchRecords} />}
 
       <div className="space-y-4">
@@ -57,11 +76,17 @@ export default function CollectionFeed({ config }: Props) {
               </div>
               
               <div className="flex gap-1">
-                <button onClick={() => { setEditingId(record.id); setEditText(record[config.textField]); }} className="p-1.5 text-muted hover:text-primary rounded">
+                <button 
+                  onClick={() => { 
+                    setEditingId(record.id); 
+                    setEditText(record[config.textField]); 
+                    setEditFile(null);
+                  }} 
+                  className="p-1.5 text-muted hover:text-primary rounded"
+                >
                   <Edit3 size={18} />
                 </button>
                 
-                {/* 2. Hide Delete button if the collection is Update Only */}
                 {!config.isUpdateOnly && (
                   <button onClick={() => handleDelete(record.id)} className="p-1.5 text-muted hover:text-red-500 rounded">
                     <Trash2 size={18} />
@@ -72,15 +97,46 @@ export default function CollectionFeed({ config }: Props) {
 
             {/* Inline Editing */}
             {editingId === record.id ? (
-              <div className="mt-2">
+              <div className="mt-2 space-y-3">
                 <textarea
                   className="w-full bg-background border border-primary rounded p-3 text-text focus:outline-none"
                   rows={4}
                   value={editText}
                   onChange={(e) => setEditText(e.target.value)}
                 />
+                
+                {/* File Attachment Editor */}
+                {config.hasImage && (
+                  <div className="flex flex-col gap-2">
+                    <input 
+                      type="file" 
+                      ref={fileInputRef}
+                      className="hidden" 
+                      accept="image/*"
+                      onChange={(e) => {
+                        if (e.target.files?.[0]) setEditFile(e.target.files[0]);
+                      }}
+                    />
+                    <div className="flex items-center gap-3">
+                      <button 
+                        type="button"
+                        onClick={() => fileInputRef.current?.click()}
+                        className="flex items-center gap-2 text-xs bg-background border border-border hover:border-primary text-text px-3 py-2 rounded-lg transition"
+                      >
+                        <ImageIcon size={14} />
+                        {record.image ? 'Replace Image' : 'Choose Image'}
+                      </button>
+                      {editFile && (
+                        <span className="text-xs text-primary font-medium truncate max-w-[200px]">
+                          Selected: {editFile.name}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                )}
+
                 <div className="flex gap-2 mt-2 justify-end">
-                  <button onClick={() => setEditingId(null)} className="flex items-center gap-1 text-sm text-muted hover:bg-background px-3 py-1 rounded">
+                  <button onClick={handleCancel} className="flex items-center gap-1 text-sm text-muted hover:bg-background px-3 py-1 rounded">
                     <X size={14}/> Cancel
                   </button>
                   <button onClick={() => handleUpdate(record.id)} className="flex items-center gap-1 text-sm bg-primary text-white px-3 py-1 rounded">
@@ -89,15 +145,18 @@ export default function CollectionFeed({ config }: Props) {
                 </div>
               </div>
             ) : (
-              <p className="text-text whitespace-pre-wrap mt-2">{record[config.textField]}</p>
-            )}
-
-            {config.hasImage && record.image && (
-              <img 
-                src={`${pb.baseUrl}/api/files/${config.id}/${record.id}/${record.image}`} 
-                alt="attachment" 
-                className="mt-4 rounded-lg w-full max-h-96 object-cover border border-border"
-              />
+              /* Static Presentation Mode */
+              <>
+                <p className="text-text whitespace-pre-wrap mt-2">{record[config.textField]}</p>
+                
+                {config.hasImage && record.image && (
+                  <img 
+                    src={`${pb.baseUrl}/api/files/${config.id}/${record.id}/${record.image}`} 
+                    alt="attachment" 
+                    className="mt-4 rounded-lg w-full max-h-96 object-cover border border-border"
+                  />
+                )}
+              </>
             )}
           </div>
         ))}

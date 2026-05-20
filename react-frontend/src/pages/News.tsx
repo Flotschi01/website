@@ -46,8 +46,7 @@ export default function News() {
           Aktuelles & Flyer
         </h1>
         <p className="text-fg/60 max-w-2xl mx-auto text-lg leading-relaxed">
-          Bleiben Sie auf dem Laufenden mit unseren neuesten Ankündigungen, 
-          Veranstaltungen und aktuellen Flyern zum Download.
+          Unsere aktuellen Ankündigungen, Veranstaltungen und Flyer zum Download.
         </p>
       </section>
 

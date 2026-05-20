@@ -11,4 +11,6 @@ export const adminCollections: CollectionConfig[] = [
   { id: 'landing_pages', label: 'Start Fotos', textField: 'content', hasImage: true },
   { id: 'texts', label: 'Texte', textField: 'text', hasImage: false, hasTitle: true, isUpdateOnly: true },
   { id: 'flyers', label: 'Flyers', textField: 'description', hasImage: true },
+  { id: 'images', label: 'Sonstige Fotos', hasTitle: true, hasImage: true, isUpdateOnly: true, textField: 'description' },
+
 ];

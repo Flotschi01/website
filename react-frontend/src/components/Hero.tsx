@@ -15,7 +15,7 @@ interface HeroProps {
   textMap: Record<string, string>; // Receives centralized text layout object from Home
 }
 
-const INTERVAL_MS = 6000;
+const INTERVAL_MS = 10000;
 const TRANSITION_MS = 800;
 
 const Hero: React.FC<HeroProps> = ({ textMap }) => {
@@ -124,9 +124,9 @@ const Hero: React.FC<HeroProps> = ({ textMap }) => {
         <div className="absolute inset-0 bg-black/50 z-10" />
 
         {/* --- DYNAMIC OVERLAY CONTENT BOX --- */}
-        <div className="relative z-20 flex h-full flex-col items-center justify-center px-4 text-center text-white">
-          <h1 className="mb-4 text-4xl font-bold tracking-tight md:text-7xl max-w-5xl">
-            {textMap['Start Text'] || 'Hast du dich schon mal gefragt, was dein Moser denkt?'}
+        <div className="relative z-20 flex h-full flex-col items-center justify-center px-4 text-center">
+          <h1 className="text-primary mb-4 text-4xl font-bold tracking-tight md:text-7xl max-w-5xl">
+            {textMap['Start Text'] || 'Fehler'}
           </h1>
           <p className="mb-8 max-w-2xl text-lg md:text-xl text-gray-200 whitespace-pre-wrap">
             {textMap['Untertitel'] || 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi quam nostrum officia aliquam a ut dignissimos.'}
