@@ -35,7 +35,7 @@ export default function AdminDashboard() {
       {/* Sidebar Navigation */}
       <aside className="w-full md:w-64 bg-[var(--admin-color-surface)] border-r border-[var(--admin-color-border)] p-4 flex flex-col gap-2">
         <div className="mb-6 px-2">
-          <h1 className="text-xl font-bold text-[var(--admin-color-text)]">CMS Manager</h1>
+          <h1 className="text-xl font-bold text-[var(--admin-color-text)]">CMS-Verwaltung</h1>
         </div>
         
         <nav className="flex-1 space-y-1 flex md:flex-col overflow-x-auto md:overflow-x-visible pb-2 md:pb-0">
@@ -59,7 +59,7 @@ export default function AdminDashboard() {
           className="mt-auto flex items-center gap-2 px-4 py-2 text-[var(--admin-color-muted)] hover:text-red-500 transition-colors"
         >
           <LogOut size={18} />
-          <span>Sign Out</span>
+          <span>Abmelden</span>
         </button>
       </aside>
 
@@ -72,6 +72,7 @@ export default function AdminDashboard() {
         
         {/* Pass a key so React completely remounts the component when switching tabs */}
         <CollectionFeed key={activeTab} config={activeConfig} />
+
       </main>
       
     </div>

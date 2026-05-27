@@ -1,6 +1,5 @@
 import { useEffect, useState, useCallback } from "react";
 import pb from '../lib/pocketbase';
-import Hero from '../components/Hero';
 
 interface TextRecord {
   title: string; 
@@ -11,32 +10,28 @@ interface ImageRecord {
   id: string;
   collectionId: string;
   collectionName: string;
-  title: string; // Used as the key (e.g., "praesidentin_avatar")
-  image: string; // The binary filename managed by PocketBase
+  title: string; 
+  image: string; 
 }
 
 export default function Home() {
   const [textMap, setTextMap] = useState<Record<string, string>>({});
-  const [imageMap, setImageMap] = useState<Record<string, string>>({}); // 👈 Dictionary for image URLs
+  const [imageMap, setImageMap] = useState<Record<string, string>>({});
 
-  // Fetch text & image matrices simultaneously
   const fetchWebsiteAssets = useCallback(async () => {
     try {
       const [textData, imageData] = await Promise.all([
         pb.collection('texts').getFullList<TextRecord>({ requestKey: null }),
-        pb.collection('images').getFullList<ImageRecord>({ requestKey: null }) // 👈 Fetch from images collection
+        pb.collection('images').getFullList<ImageRecord>({ requestKey: null })
       ]);
       
-      // 1. Map Text Copy
       const textMapping = textData.reduce((acc, item) => {
         acc[item.title] = item.text;
         return acc;
       }, {} as Record<string, string>);
       setTextMap(textMapping);
 
-      // 2. Map Images directly to their full PocketBase CDN URLs
       const imageMapping = imageData.reduce((acc, item) => {
-        // Automatically builds the absolute URL string for each key
         acc[item.title] = pb.files.getUrl(item, item.image);
         return acc;
       }, {} as Record<string, string>);
@@ -52,113 +47,140 @@ export default function Home() {
     fetchWebsiteAssets();
   }, [fetchWebsiteAssets]);
 
-  // Clean helper functions for mapping lookups with standard fallback recovery
   const t = (key: string, fallback: string) => textMap[key] || fallback;
   const img = (key: string, fallbackUrl?: string) => imageMap[key] || fallbackUrl || "";
 
   return (
-    <div className="bg-bg text-fg min-h-screen">
-      <Hero textMap={textMap} />
+    <div className="text-[var(--color-fg)] min-h-screen mt-16 font-sans dynamic-theme-wrapper flex flex-col">
 
-      {/* --- SECTION 2: FEATURES --- */}
-      <section className="py-12 px-6 max-w-7xl mx-auto">
-        <h2 className="text-4xl font-bold mb-12 text-center">
-          {t('Titel Abschnitt 1', 'Fehler')}
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-
-            <div key={"Verein_1"} className="group p-8 rounded-3xl bg-primary/60 border border-fg/10 hover:border-primary/50 transition">
-              <div className={`w-12 h-12 rounded-lg mb-6 flex items-center justify-center ${'bg-secondary'}`}>
-                <div className="w-6 h-6 bg-bg rounded-sm" />
+      {/* --- SECTION 1: HERO & GENERAL INFO (Muted Sage Background) --- */}
+      <section className="bg-[var(--color-bg-hero)] pt-20 pb-24 px-6 md:px-12 lg:px-24">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+          
+          {/* Left Column: Bold Asymmetric Typography */}
+          <div className="lg:col-span-7 space-y-8">
+            <h1 className="text-4xl md:text-6xl font-light tracking-tight text-[var(--color-primary)] leading-tight max-w-2xl">
+              {t('Titel Abschnitt 1', 'Fehler')}
+            </h1>
+            
+            <div className="space-y-6 max-w-xl pt-4">
+              <div className="border-l-2 border-[var(--color-primary)] pl-6">
+                <h3 className="text-md font-bold uppercase tracking-widest text-[var(--color-accent)] mb-2">Allgemeines</h3>
+                <p className="text-lg leading-relaxed whitespace-pre-wrap opacity-90">
+                  {t('Verein_1', 'Fehler')}
+                </p>
               </div>
-              <h3 className="text-2xl font-bold mb-4">Allgemeines</h3>
-              <p className="text-fg leading-relaxed whitespace-pre-wrap">
-                {t('Verein_1', 'Fehler')}
-              </p>
             </div>
+          </div>
 
-            <div key={"Verein_2"} className="group p-8 rounded-3xl bg-secondary/60 border border-fg/10 hover:border-primary/50 transition">
-              <div className={`w-12 h-12 rounded-lg mb-6 flex items-center justify-center ${'bg-primary'}`}>
-                <div className="w-6 h-6 bg-bg rounded-sm" />
-              </div>
-              <h3 className="text-2xl font-bold mb-4">Unsere Vereinstätigkeiten</h3>
-              <p className="text-fg leading-relaxed whitespace-pre-wrap">
-                {textMap['Verein_2']?.replace(/\\n/g, '\n') || 'Fehler'}
-              </p>
+          {/* Right Column: Clean Vertical Image Frame */}
+          <div className="lg:col-span-5 flex justify-center lg:justify-end">
+            <div className="w-full max-w-md aspect-[3/4] overflow-hidden shadow-lg rounded-xl">
+              <img 
+                src={img('Foto Präsidentin')} 
+                className="w-full h-full object-cover grayscale-[15%] contrast-[105%] transition-transform duration-500 hover:scale-105" 
+                alt="Präsidentin" 
+              />
             </div>
+          </div>
+
         </div>
       </section>
 
-      {/* --- SECTION 3: BENTO BOX DISPLAY --- */}
-      <section className="py-12 px-6 max-w-7xl mx-auto">
-  <h2 className="text-4xl font-bold mb-12 text-center">
-    {t('Titel Abschnitt 2', 'Fehler')}
-  </h2>
-  {/* REMOVED auto-rows-[400px] and ADDED auto-rows-max */}
-  <div className="grid grid-cols-1 md:grid-cols-4 gap-4 auto-rows-max">
+      {/* --- SECTION 2: ACTIVITIES (Clean Cream Background) --- */}
+      <section className="bg-[var(--color-bg-sec1)] py-24 px-6 md:px-12 lg:px-24">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          
+          {/* Left: Activities Text */}
+          <div className="lg:col-span-6 space-y-6">
+            <span className="text-xs font-bold uppercase tracking-widest text-[var(--color-accent)] bg-[var(--color-bg-sec2)] px-3 py-1 rounded-full inline-block">
+              Unsere Vereinstätigkeiten
+            </span>
+            <h2 className="text-3xl md:text-4xl font-light tracking-tight text-[var(--color-primary)] leading-tight">
+              Was wir tun
+            </h2>
+            <p className="text-lg md:text-xl font-light leading-relaxed opacity-90 whitespace-pre-wrap">
+              {textMap['Verein_2']?.replace(/\\n/g, '\n') || 'Fehler'}
+            </p>
+          </div>
 
-    {/* Box 2: Image Content */}
-    {/* ADDED h-full object-cover to the image to ensure it behaves within the flex container */}
-    <div className="bg-fg/5 rounded-3xl border border-fg/10 overflow-hidden relative group flex flex-col">
-      <img src={img('Foto Präsidentin')} className="w-full h-full object-cover" alt="Präsidentin" />
-    </div>
+          {/* Right: Activities Image */}
+          <div className="lg:col-span-6 flex justify-center">
+            <div className="w-full max-w-lg aspect-[4/3] overflow-hidden shadow-lg rounded-xl">
+              <img 
+                src={img('Vereinstätigkeiten')} 
+                className="w-full h-full object-cover grayscale-[15%] contrast-[105%] transition-transform duration-500 hover:scale-105" 
+                alt="Vereinstätigkeiten" 
+              />
+            </div>
+          </div>
 
-    {/* Box 1: Text Content */}
-    <div className="md:col-span-2 bg-primary/20 rounded-3xl border border-primary/30 p-8 flex flex-col justify-end">
-      <h3 className="text-primary text-2xl font-bold">
-        {t('Name', 'Fehler')}
-      </h3>
-      <p className="text-fg/80">
-        {t('Beschreibung Präsidentin', 'Lorem ipsum dolor sit amet consectetur.')?.replace(/\\n/g, '\n')}
-      </p>
-    </div>
-
-    <div className="bg-fg/5 rounded-3xl border border-fg/10 p-8">
-       <span className="text-4xl font-black text-fg/20">01</span>
-        <div className="text-2xl font-bold text-fg mt-4">
-        {t('Qualifikationen 1', 'Fehler')}
-        </div>
-    </div>
-    
-    <div className="bg-fg/5 rounded-3xl border border-fg/10 p-8">
-       <span className="text-4xl font-black text-fg/20">02</span>
-        <div className="text-2xl font-bold text-fg mt-4">
-         {t('Qualifikationen 2', 'Fehler')}
-        </div>
-    </div>
-    
-    {/* Hybrid Box */}
-    {/* CHANGED h-full to self-stretch to handle dynamic content without collapsing */}
-    <div className="md:col-span-3 bg-gradient-to-r from-primary to-secondary rounded-3xl p-1 flex items-center">
-      <div className="bg-bg w-full h-full rounded-[22px] p-8 flex items-center justify-between">
-          <h3 className="text-3xl font-bold">
-            {t('Möglichkeiten Box', 'The Hybrid Experience')}
-          </h3>
-          <button className="bg-fg text-bg px-6 py-2 rounded-lg font-bold" onClick={() => window.location.href = '/offers'}>
-            hier
-          </button>
-      </div>
-    </div>
-  </div>
-</section>
-
-      {/* --- SECTION 5: CONTENT HEAVY PHILOSOPHY --- */}
-      <section className="py-24 px-6 max-w-4xl mx-auto">
-        <h2 className="text-4xl font-bold mb-8">
-          {t('philosophy_title', 'Detailed Philosophy')}
-        </h2>
-        <div className="space-y-6 text-lg text-fg/70 leading-loose whitespace-pre-wrap">
-          <p>
-            {t('philosophy_p1', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Primum Theophrasti, Strato, physicum se voluit; in quo etsi est multum admodum fortunae, tamen est velit.')}
-          </p>
-          <blockquote className="border-l-4 border-secondary pl-6 py-2 italic text-fg">
-            "{t('philosophy_quote', 'Hoc ist non modo cor non habere, sed ne palatum quidem. Non enim hanc solitudinem intellegere possumus.')}"
-          </blockquote>
-          <p>
-            {t('philosophy_p2', 'Quid ad utilitatem tantae pecuniae? Videsne, ut quibus summa est in voluptate, hi cum solitudine aliquid etiam velle videantur? An vero displicuit ea, quae secundum naturam sunt?')}
-          </p>
         </div>
       </section>
+
+      {/* --- SECTION 3: PROFILE & PRESIDENT (Secondary Neutral Tint) --- */}
+      <section className="bg-[var(--color-bg-sec2)] py-24 px-6 md:px-12 lg:px-24">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          
+          {/* Left: President Image */}
+          <div className="lg:col-span-5 flex justify-center lg:justify-end order-2 lg:order-1">
+            <div className="w-full max-w-md aspect-[3/4] overflow-hidden shadow-lg rounded-xl">
+              <img 
+                src={img('Foto Präsidentin Profil')} 
+                className="w-full h-full object-cover grayscale-[15%] contrast-[105%] transition-transform duration-500 hover:scale-105" 
+                alt="Präsidentin Profil" 
+              />
+            </div>
+          </div>
+
+          {/* Right: President Info */}
+          <div className="lg:col-span-6 space-y-6 order-1 lg:order-2">
+            <span className="text-xs uppercase tracking-widest bg-[var(--color-bg-hero)] px-3 py-1 rounded-full inline-block text-[var(--color-primary)]">
+              {t('Titel Abschnitt 2', 'Fehler')}
+            </span>
+            <h2 className="text-3xl md:text-4xl font-normal text-[var(--color-primary)]">
+              {t('Name', 'Fehler')}
+            </h2>
+            <p className="text-lg leading-loose opacity-80 max-w-xl whitespace-pre-wrap">
+              {t('Beschreibung Präsidentin', 'Lorem ipsum dolor sit amet.')?.replace(/\\n/g, '\n')}
+            </p>
+          </div>
+
+        </div>
+      </section>
+
+      {/* --- SECTION 4: QUALIFICATIONS (Light Warm Amber Tint) --- */}
+      <section className="bg-[var(--color-bg-sec3)] py-24 px-6 md:px-12 lg:px-24">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          
+          {/* Left: Qualifications List */}
+          <div className="lg:col-span-6 space-y-6">
+            <span className="text-xs font-bold uppercase tracking-widest text-[var(--color-accent)] bg-[var(--color-bg-sec2)] px-3 py-1 rounded-full inline-block">
+              Expertise
+            </span>
+            <h2 className="text-3xl md:text-4xl font-light tracking-tight text-[var(--color-primary)] leading-tight">
+              Qualifikationen & Erfahrung
+            </h2>
+          </div>
+
+          {/* Right: Qualification Items */}
+          <div className="lg:col-span-6 flex flex-col justify-center space-y-12 lg:pl-12">
+            <div className="relative pt-4">
+              <div className="text-xl font-medium text-[var(--color-primary)] relative z-10 pl-2">
+                {t('Qualifikationen 1', 'Fehler')}
+              </div>
+            </div>
+            
+            <div className="relative pt-4">
+              <div className="text-xl font-medium text-[var(--color-primary)] relative z-10 pl-2">
+                {t('Qualifikationen 2', 'Fehler')}
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
     </div>
   );
 }

@@ -33,7 +33,7 @@ export default function CreatorBox({ config, onCreated }: Props) {
       onCreated();
     } catch (err) {
       console.error("Creation error:", err);
-      alert("Failed to create entry.");
+      alert("Erstellen des Eintrags fehlgeschlagen.");
     } finally {
       setIsSubmitting(false);
     }
@@ -44,7 +44,7 @@ export default function CreatorBox({ config, onCreated }: Props) {
       {config.hasTitle && (
         <input 
           type="text"
-          placeholder="Enter title..."
+          placeholder="Titel eingeben..."
           className="w-full mb-3 p-2 bg-background border border-border rounded text-text font-medium outline-none focus:border-primary"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
@@ -54,14 +54,14 @@ export default function CreatorBox({ config, onCreated }: Props) {
       <textarea
         className="w-full bg-background rounded-xl p-3 resize-none outline-none text-text placeholder:text-muted focus:ring-1 focus:ring-primary transition-all"
         rows={3}
-        placeholder={`Write something for ${config.label}...`}
+        placeholder={`Schreibe etwas für ${config.label}...`}
         value={text}
         onChange={(e) => setText(e.target.value)}
       />
 
       {file && (
         <div className="mt-2 text-sm text-primary flex items-center justify-between bg-background p-2 rounded">
-          <span>Attached: {file.name}</span>
+          <span>Angehängt: {file.name}</span>
           <button onClick={() => setFile(null)} className="text-muted hover:text-red-500">✕</button>
         </div>
       )}
@@ -94,7 +94,7 @@ export default function CreatorBox({ config, onCreated }: Props) {
           className="flex items-center gap-2 bg-primary hover:bg-primary-hover text-white px-5 py-2 rounded-lg font-semibold transition-colors disabled:opacity-50"
         >
           <Send size={18} />
-          {isSubmitting ? 'Posting...' : 'Publish'}
+          {isSubmitting ? 'Wird veröffentlicht...' : 'Veröffentlichen'}
         </button>
       </div>
     </div>

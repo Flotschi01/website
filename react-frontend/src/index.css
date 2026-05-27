@@ -30,6 +30,29 @@
   --color-primary: #b8860b; /* Darker Gold for contrast */
   --color-secondary: #fc94ea; /* Your Pink */
 
+
+
+  --color-fg: #2b2b2b;
+  --color-primary: #555d4e;       /* Deep Sage Green for text/buttons */
+  --color-accent: #b8860b;        /* Contrasting Dark Gold */
+  
+  /* Simple Pastel Background Separation */
+  --color-bg-hero: #e2e7dc;       /* Light Sage */
+  --color-bg-sec1: #fdfaf4;       /* Clean Cream */
+  --color-bg-sec2: #eae6df;       /* Soft Sand Beige */
+  --color-bg-sec3: #f5eedf;       /* Light Warm Amber Tint */
+
+
+--color-fg: var(--color-fg);
+  --color-primary: var(--color-primary);
+  --color-accent: var(--color-accent);
+  
+  --color-bg-hero: var(--color-bg-hero);
+  --color-bg-sec1: var(--color-bg-sec1);
+  --color-bg-sec2: var(--color-bg-sec2);
+  --color-bg-sec3: var(--color-bg-sec3);
+
+
   
   --admin-color-primary: #1877F2; /* Facebook Blue */
   --admin-color-primary-hover: #166FE5;

@@ -1,6 +1,4 @@
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X } from "lucide-react";
-import { useState } from "react";
 
 interface NavItem {
   name: string;
@@ -10,39 +8,39 @@ interface NavItem {
 const navItems: NavItem[] = [
   { name: "Home", path: "/" },
   { name: "Aktuelles", path: "/news" },
-  { name: "Angebote", path: "/offers" },
-  { name: "Admin", path: "/admin" },
+  { name: "Über uns", path: "/verein" },
 ];
 
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
 
   return (
-    <div className="fixed top-5 right-5 z-50 flex items-center">
-      {/* Pill */}
-      <div
-        className="flex items-center bg-bg/80 backdrop-blur-md border border-white/10 shadow-lg rounded-full overflow-hidden"
-        style={{ height: "48px" }}
-      >
-        {/* Links — always in DOM, fade in/out */}
-        <div
-          className="flex items-center gap-1 transition-all duration-1200"
-          style={{
-            maxWidth: isOpen ? "400px" : "0px",
-            opacity: isOpen ? 1 : 0,
-            paddingLeft: isOpen ? "16px" : "0px",
-            overflow: "hidden",
-          }}
-        >
+    <nav className="fixed top-0 left-0 w-full z-50 bg-bg/80 backdrop-blur-md border-b border-white/10 shadow-sm">
+      <div className="max-w-7xl mx-auto w-full px-8 h-24 flex items-center justify-between">
+        {/* Left Section: Logo & Brand Text */}
+        <div className="flex items-center gap-4">
+          {/* Round logo placeholder */}
+          <img
+            src="/Logo.png"
+            alt="Logo"
+            className="w-16 h-16 rounded-full"
+          />
+
+          {/* Text right after logo - visible only on desktop */}
+          <span className="hidden md:block text-2xl font-semibold">
+            Verein Faszination Tierwelt Linmezis's
+          </span>
+        </div>
+
+        {/* Right Section: Nav Items */}
+        <div className="flex items-center gap-2">
           {navItems.map((item) => {
             const isActive = location.pathname === item.path;
             return (
               <Link
                 key={item.name}
                 to={item.path}
-                onClick={() => setIsOpen(false)}
-                className="px-3 py-1 rounded-full text-sm font-medium whitespace-nowrap transition-colors hover:text-primary"
+                className="px-6 py-3 rounded-full text-lg font-medium whitespace-nowrap transition-colors hover:text-primary"
                 style={{
                   color: isActive ? "var(--color-primary)" : "inherit",
                 }}
@@ -52,16 +50,7 @@ export default function Navbar() {
             );
           })}
         </div>
-
-        {/* Toggle button */}
-        <button
-          onClick={() => setIsOpen((o) => !o)}
-          className="flex items-center justify-center rounded-full hover:text-primary transition-colors"
-          style={{ width: "48px", height: "48px", flexShrink: 0 }}
-        >
-          {isOpen ? <X size={18} /> : <Menu size={18} />}
-        </button>
       </div>
-    </div>
+    </nav>
   );
 }

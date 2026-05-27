@@ -1,100 +1,162 @@
+import { useEffect, useState, useCallback } from "react";
+import pb from '../lib/pocketbase';
+
+interface TextRecord {
+  title: string;
+  text: string;
+}
+
+interface ImageRecord {
+  id: string;
+  collectionId: string;
+  collectionName: string;
+  title: string;
+  image: string;
+}
 
 export default function Offers() {
+  const [textMap, setTextMap] = useState<Record<string, string>>({});
+  const [imageMap, setImageMap] = useState<Record<string, string>>({});
+
+  const fetchWebsiteAssets = useCallback(async () => {
+    try {
+      const [textData, imageData] = await Promise.all([
+        pb.collection('texts').getFullList<TextRecord>({ requestKey: null }),
+        pb.collection('images').getFullList<ImageRecord>({ requestKey: null })
+      ]);
+
+      const textMapping = textData.reduce((acc, item) => {
+        acc[item.title] = item.text;
+        return acc;
+      }, {} as Record<string, string>);
+      setTextMap(textMapping);
+
+      const imageMapping = imageData.reduce((acc, item) => {
+        acc[item.title] = pb.files.getUrl(item, item.image);
+        return acc;
+      }, {} as Record<string, string>);
+      setImageMap(imageMapping);
+    } catch (err: any) {
+      if (err.isAbort) return;
+      console.error("Error fetching offers assets:", err);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchWebsiteAssets();
+  }, [fetchWebsiteAssets]);
+
+  // Hilfsfunktionen für dynamische Inhalte
+  const t = (key: string, fallback: string) => textMap[key] || fallback;
+  const img = (key: string, fallbackUrl?: string) => imageMap[key] || fallbackUrl || "";
+
   return (
-    <div className="bg-bg text-fg min-h-screen flex flex-col justify-between">
-      {/* --- HERO / INTRO SECTION --- */}
-      <header className="pt-24 pb-12 px-6 max-w-7xl mx-auto text-center">
-        <span className="text-primary uppercase tracking-widest text-xs font-bold bg-primary/10 px-3 py-1 rounded-full">
-          Möglichkeiten & Angebote
-        </span>
-        <h1 className="text-4xl md:text-6xl font-black mt-4 tracking-tight max-w-3xl mx-auto">
-          Das bieten wir:
-        </h1>
-      </header>
+    <div className="text-[var(--color-fg)] min-h-screen font-sans mt-16 dynamic-theme-wrapper flex flex-col">
 
-      {/* --- MAIN BENTO CONTENT SECTION --- */}
-      <main className="flex-grow px-6 max-w-6xl mx-auto w-full mb-24">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
-          
-          {/* Große Fokus-Karte: Möglichkeiten & Forschung */}
-          <div className="md:col-span-8 rounded-3xl bg-fg/5 border border-fg/10 p-8 md:p-12 flex flex-col justify-between group hover:border-primary/30 transition duration-300">
-            <div>
-              <h2 className="text-xs uppercase tracking-widest font-black text-primary mb-6">
-                Möglichkeiten:
-              </h2>
-              <div className="space-y-6 text-lg md:text-xl font-medium leading-relaxed">
-                <div className="flex items-start gap-4">
-                  <span className="text-primary font-bold text-2xl leading-none mt-[-2px]">◦</span>
-                  <p className="text-fg/90">
-                    Forschungsprojekt Tiergespräch (Sterbebegleitung, Regenbogen-Tiere, vermisste Tiere)
-                  </p>
-                </div>
-                <div className="flex items-start gap-4">
-                  <span className="text-primary font-bold text-2xl leading-none mt-[-2px]">•</span>
-                  <p className="text-fg/90">
-                    Forschungsprojekt feinstoffliche und feststoffliche Energien
-                  </p>
-                </div>
-                <div className="flex items-start gap-4">
-                  <span className="text-primary font-bold text-2xl leading-none mt-[-2px]">◦</span>
-                  <p className="text-fg/90">
-                    Forschungsprojekt alternative Genesungstormen Workshops
-                  </p>
-                </div>
-              </div>
+      {/* SECTION 1: Tierkommunikation (Muted Sage) */}
+      <section className="bg-[var(--color-bg-hero)] py-24 px-6 md:px-12 lg:px-24">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          <div className="lg:col-span-7 space-y-6">
+            <span className="text-xs font-bold uppercase tracking-widest text-[var(--color-accent)] bg-[var(--color-bg-sec2)] px-3 py-1 rounded-full inline-block">
+              Angebot 01
+            </span>
+            <h2 className="text-4xl md:text-5xl font-light tracking-tight text-[var(--color-primary)] leading-tight">
+              {t('offer_1_title', 'Tierkommunikation')}
+            </h2>
+            <p className="text-lg md:text-xl font-light leading-relaxed opacity-90 whitespace-pre-wrap">
+              {t('Tierkommunikation', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.')}
+            </p>
+          </div>
+          <div className="lg:col-span-5 flex justify-center">
+            <div className="w-full max-w-md aspect-[4/3] overflow-hidden shadow-lg rounded-xl">
+              <img
+                src={img('Tierkommunikation')}
+                className="w-full h-full object-cover grayscale-[15%] contrast-[105%] transition-transform duration-500 hover:scale-105"
+                alt="Tierkommunikation"
+              />
             </div>
           </div>
-
-          {/* Kompakte Highlight-Karte: Fördermitgliedschaft */}
-          <div className="md:col-span-4 rounded-3xl bg-primary/5 border border-primary/20 p-8 md:p-10 flex flex-col justify-between hover:bg-primary/10 transition duration-300">
-            <div>
-              <span className="text-xs uppercase tracking-widest font-bold text-primary block mb-4">
-                Gemeinschaft
-              </span>
-              <h3 className="text-xl font-bold tracking-tight text-fg leading-snug">
-                Fördermitgliedschaft: Jeder ist herzlich eingeladen, Fördermitglied zu werden !
-              </h3>
-            </div>
-            
-            <div className="mt-12 pt-6 border-t border-primary/10">
-              <span className="text-xs uppercase tracking-wider text-fg/50 block mb-1">
-                Beitrag
-              </span>
-              <div className="text-2xl font-black text-primary tracking-tight">
-                Fördermitgliedsbeitrag 15€/Jahr
-              </div>
-            </div>
-          </div>
-
-          {/* Breite Call-to-Action-Karte: Einladung & Kontakt */}
-          <div className="md:col-span-12 rounded-3xl bg-fg text-bg p-8 md:p-12 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8 mt-2">
-            <div className="max-w-2xl">
-              <p className="text-xl md:text-2xl font-bold leading-relaxed tracking-tight">
-                Wir freuen uns, dich bald im Verein Faszination Tierwelt Linmezi s begrüßen zu dürfen!
-              </p>
-            </div>
-            
-            <div className="w-full lg:w-auto shrink-0 bg-bg/10 p-6 rounded-2xl border border-bg/10 space-y-3 min-w-[280px]">
-              <div className="text-xs uppercase tracking-widest font-mono text-bg/50 font-bold mb-2">
-                Direkter Kontakt
-              </div>
-              <div>
-                <span className="block text-[10px] uppercase tracking-wider opacity-60">E-Mail</span>
-                <a href="mailto:verein.linmezis@gmx.at" className="font-bold text-base underline hover:text-primary transition duration-200">
-                  verein.linmezis@gmx.at
-                </a>
-              </div>
-              <div className="pt-1">
-                <span className="block text-[10px] uppercase tracking-wider opacity-60">Telefon</span>
-                <a href="tel:06767484312" className="font-bold text-base underline hover:text-primary transition duration-200">
-                  0676/7484312
-                </a>
-              </div>
-            </div>
-          </div>
-
         </div>
-      </main>
+      </section>
+
+      {/* SECTION 2: Bewusste spirituelle Begleitung (Clean Cream) */}
+      <section className="bg-[var(--color-bg-sec1)] py-24 px-6 md:px-12 lg:px-24">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          <div className="lg:col-span-7 space-y-6 lg:order-2 order-1">
+            <span className="text-xs font-bold uppercase tracking-widest text-[var(--color-accent)] bg-[var(--color-bg-sec2)] px-3 py-1 rounded-full inline-block">
+              Angebot 02
+            </span>
+            <h2 className="text-4xl md:text-5xl font-light tracking-tight text-[var(--color-primary)] leading-tight">
+              {t('offer_2_title', 'Bewusste spirituelle Begleitung für alle Geschöpfe')}
+            </h2>
+            <p className="text-lg md:text-xl font-light leading-relaxed opacity-90 whitespace-pre-wrap">
+              {t('spirituelle Begleitung', 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.')}
+            </p>
+          </div>
+          <div className="lg:col-span-5 flex justify-center lg:order-1 order-2">
+            <div className="w-full max-w-md aspect-[4/3] overflow-hidden shadow-lg rounded-xl">
+              <img
+                src={img('spirituelle Begleitung')}
+                className="w-full h-full object-cover grayscale-[15%] contrast-[105%] transition-transform duration-500 hover:scale-105"
+                alt="Spirituelle Begleitung"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION 3: Energieharmonisierung (Light Warm Amber Tint) */}
+      <section className="bg-[var(--color-bg-sec3)] py-24 px-6 md:px-12 lg:px-24">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          <div className="lg:col-span-7 space-y-6">
+            <span className="text-xs font-bold uppercase tracking-widest text-[var(--color-accent)] bg-[var(--color-bg-sec2)] px-3 py-1 rounded-full inline-block">
+              Angebot 03
+            </span>
+            <h2 className="text-4xl md:text-5xl font-light tracking-tight text-[var(--color-primary)] leading-tight">
+              {t('offer_3_title', 'Energieharmonisierung für Raum und Stall')}
+            </h2>
+            <p className="text-lg md:text-xl font-light leading-relaxed opacity-90 whitespace-pre-wrap">
+              {t('Energieharmonisierung', 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.')}
+            </p>
+          </div>
+          <div className="lg:col-span-5 flex justify-center">
+            <div className="w-full max-w-md aspect-[4/3] overflow-hidden shadow-lg rounded-xl">
+              <img
+                src={img('Energieharmonisierung')}
+                className="w-full h-full object-cover grayscale-[15%] contrast-[105%] transition-transform duration-500 hover:scale-105"
+                alt="Energieharmonisierung"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION 4: Workshops (Secondary Neutral Tint) */}
+      <section className="bg-[var(--color-bg-sec2)] py-24 px-6 md:px-12 lg:px-24">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          <div className="lg:col-span-7 space-y-6 lg:order-2 order-1">
+            <span className="text-xs font-bold uppercase tracking-widest text-[var(--color-accent)] bg-[var(--color-bg-hero)] px-3 py-1 rounded-full inline-block">
+              Angebot 04
+            </span>
+            <h2 className="text-4xl md:text-5xl font-light tracking-tight text-[var(--color-primary)] leading-tight">
+              {t('offer_4_title', 'Workshops & Seminare')}
+            </h2>
+            <p className="text-lg md:text-xl font-light leading-relaxed opacity-90 whitespace-pre-wrap">
+              {t('Workshops', 'Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.')}
+            </p>
+          </div>
+          <div className="lg:col-span-5 flex justify-center lg:order-1 order-2">
+            <div className="w-full max-w-md aspect-[4/3] overflow-hidden shadow-lg rounded-xl">
+              <img
+                src={img('Workshops')}
+                className="w-full h-full object-cover grayscale-[15%] contrast-[105%] transition-transform duration-500 hover:scale-105"
+                alt="Workshops"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
     </div>
   );
 }

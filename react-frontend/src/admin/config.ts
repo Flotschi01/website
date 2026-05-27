@@ -5,6 +5,7 @@ export interface CollectionConfig {
   hasImage: boolean;   // Whether this collection supports image uploads
   hasTitle?: boolean;  // Whether it needs a separate title field
   isUpdateOnly?: boolean; // 👈 Add this line
+  isColorConfig?: boolean; // 👈 Add this line
 }
 
 export const adminCollections: CollectionConfig[] = [
@@ -12,5 +13,5 @@ export const adminCollections: CollectionConfig[] = [
   { id: 'texts', label: 'Texte', textField: 'text', hasImage: false, hasTitle: true, isUpdateOnly: true },
   { id: 'flyers', label: 'Flyers', textField: 'description', hasImage: true },
   { id: 'images', label: 'Sonstige Fotos', hasTitle: true, hasImage: true, isUpdateOnly: true, textField: 'description' },
-
+  { id: 'colors', label: 'Farben', textField: 'color', hasImage: false, hasTitle: true, isUpdateOnly: true, isColorConfig: true },
 ];

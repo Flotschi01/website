@@ -2,6 +2,7 @@ import { useEffect, useState, useCallback, useRef } from 'react';
 import type { CollectionConfig } from '../config';
 import pb from "../../lib/pocketbase";
 import CreatorBox from './CreatorBox';
+import ColorSelector from './ColorSelector'; // 👈 Import the newly extracted file
 import { Trash2, Edit3, X, Check, Image as ImageIcon } from 'lucide-react';
 
 interface Props {
@@ -12,7 +13,7 @@ export default function CollectionFeed({ config }: Props) {
   const [records, setRecords] = useState<any[]>([]);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editText, setEditText] = useState('');
-  const [editFile, setEditFile] = useState<File | null>(null); // 👈 Track file changes
+  const [editFile, setEditFile] = useState<File | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const fetchRecords = useCallback(async () => {
@@ -32,6 +33,11 @@ export default function CollectionFeed({ config }: Props) {
     fetchRecords();
   }, [fetchRecords]);
 
+  // 👈 SEAMLESS INTERCEPT ROUTE: Bypasses standard feed if configuration matches colors
+  if (config.isColorConfig) {
+    return <ColorSelector config={config} />;
+  }
+
   const handleDelete = async (id: string) => {
     if (!confirm('Delete this entry forever?')) return;
     await pb.collection(config.id).delete(id);
@@ -39,12 +45,11 @@ export default function CollectionFeed({ config }: Props) {
   };
 
   const handleUpdate = async (id: string) => {
-    // PocketBase handles files seamlessly via standard FormData API
     const formData = new FormData();
     formData.append(config.textField, editText);
     
     if (config.hasImage && editFile) {
-      formData.append('image', editFile); // Appends binary file directly under the key 'image'
+      formData.append('image', editFile);
     }
 
     try {
@@ -105,7 +110,6 @@ export default function CollectionFeed({ config }: Props) {
                   onChange={(e) => setEditText(e.target.value)}
                 />
                 
-                {/* File Attachment Editor */}
                 {config.hasImage && (
                   <div className="flex flex-col gap-2">
                     <input 
@@ -124,7 +128,7 @@ export default function CollectionFeed({ config }: Props) {
                         className="flex items-center gap-2 text-xs bg-background border border-border hover:border-primary text-text px-3 py-2 rounded-lg transition"
                       >
                         <ImageIcon size={14} />
-                        {record.image ? 'Replace Image' : 'Choose Image'}
+                        {record.image ? 'Foto austauschen' : 'Foto hinzufügen'}
                       </button>
                       {editFile && (
                         <span className="text-xs text-primary font-medium truncate max-w-[200px]">
@@ -137,15 +141,14 @@ export default function CollectionFeed({ config }: Props) {
 
                 <div className="flex gap-2 mt-2 justify-end">
                   <button onClick={handleCancel} className="flex items-center gap-1 text-sm text-muted hover:bg-background px-3 py-1 rounded">
-                    <X size={14}/> Cancel
+                    <X size={14}/> Abbrechen
                   </button>
                   <button onClick={() => handleUpdate(record.id)} className="flex items-center gap-1 text-sm bg-primary text-white px-3 py-1 rounded">
-                    <Check size={14}/> Save
+                    <Check size={14}/> Speichern
                   </button>
                 </div>
               </div>
             ) : (
-              /* Static Presentation Mode */
               <>
                 <p className="text-text whitespace-pre-wrap mt-2">{record[config.textField]}</p>
                 
