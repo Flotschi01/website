@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import pb from './pocketbase'; // Adjust the import path as needed
 // Initialize PocketBase (replace with your actual server URL)
-export default function ThemeProvider({ children }) {
+export default function ThemeProvider({   children}: { children: React.ReactNode }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -19,7 +19,7 @@ export default function ThemeProvider({ children }) {
 
         const root = document.documentElement;
 
-        records.forEach((record) => {
+        records.forEach((record : { title: string; color: string }) => {
           if (record.title && record.color) {
             const variableName = record.title.startsWith('--') 
               ? record.title 
@@ -33,7 +33,7 @@ export default function ThemeProvider({ children }) {
         setLoading(false);
       } catch (error) {
         // 2. Ignore PocketBase's autocancel or React's abort errors
-        if (error.isAbort || error.name === 'AbortError') {
+        if (error instanceof Error && (error.name === 'AbortError')) {
           return; 
         }
         console.error('Error fetching theme colors:', error);
