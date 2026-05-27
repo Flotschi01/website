@@ -19,7 +19,7 @@ export default function ThemeProvider({   children}: { children: React.ReactNode
 
         const root = document.documentElement;
 
-        records.forEach((record : { title: string; color: string }) => {
+        records.forEach((record) => {
           if (record.title && record.color) {
             const variableName = record.title.startsWith('--') 
               ? record.title 
