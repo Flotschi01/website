@@ -12,7 +12,7 @@ function ColorRow({ record, config, onSaveSuccess }: { record: any; config: Coll
   // Keep an isolated, local state for just this single input row
   const [localColor, setLocalColor] = useState(record[config.textField] || '#ffffff');
   const [isSaving, setIsSaving] = useState(false);
-  const [isSaved, setIsSaved] = useState(false);
+  const [isSaved, setIsSaved] = useState<boolean | null>(false);
 
   // Sync state if the database record changes externally
   useEffect(() => {
