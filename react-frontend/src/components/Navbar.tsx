@@ -42,7 +42,7 @@ export default function Navbar() {
                 to={item.path}
                 className="px-6 py-3 rounded-full text-lg font-medium whitespace-nowrap transition-colors hover:text-primary"
                 style={{
-                  color: isActive ? "var(--color-primary)" : "inherit",
+                  color: isActive ? "var(--color-primary)" : "var(--color-fg)/80",
                 }}
               >
                 {item.name}
