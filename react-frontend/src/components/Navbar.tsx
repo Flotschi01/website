@@ -15,7 +15,7 @@ export default function Navbar() {
   const location = useLocation();
 
   return (
-    <nav className="fixed top-0 left-0 w-full z-50 bg-bg-[var(--color-nav)] backdrop-blur-md border-b border-white/10 shadow-sm">
+    <nav className="fixed top-0 left-0 w-full z-50 bg-[var(--color-nav)] border-white/10">
       <div className="max-w-7xl mx-auto w-full px-8 h-24 flex items-center justify-between">
         {/* Left Section: Logo & Brand Text */}
         <div className="flex items-center gap-4">
