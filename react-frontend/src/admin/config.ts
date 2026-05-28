@@ -11,7 +11,7 @@ export interface CollectionConfig {
 export const adminCollections: CollectionConfig[] = [
   { id: 'landing_pages', label: 'Start Fotos', textField: 'content', hasImage: true },
   { id: 'texts', label: 'Texte', textField: 'text', hasImage: false, hasTitle: true, isUpdateOnly: true },
-  { id: 'flyers', label: 'Flyers', textField: 'description', hasImage: true },
+  { id: 'flyers', label: 'Flyers', textField: 'description', hasImage: true, hasTitle: true },
   { id: 'images', label: 'Sonstige Fotos', hasTitle: true, hasImage: true, isUpdateOnly: true, textField: 'description' },
   { id: 'colors', label: 'Farben', textField: 'color', hasImage: false, hasTitle: true, isUpdateOnly: true, isColorConfig: true },
 ];

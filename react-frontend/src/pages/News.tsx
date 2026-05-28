@@ -41,9 +41,7 @@ export default function News() {
       <section className="bg-[var(--color-bg-hero)] pt-20 pb-24 px-6 md:px-12 lg:px-24">
         <div className="max-w-7xl mx-auto">
           <div className="max-w-3xl">
-            <span className="text-xs font-bold uppercase tracking-widest text-[var(--color-accent)] bg-[var(--color-bg-sec2)] px-3 py-1 rounded-full inline-block mb-4">
-              Updates & Events
-            </span>
+
             <h1 className="text-4xl md:text-6xl font-light tracking-tight text-[var(--color-primary)] leading-tight">
               Aktuelles & Flyer
             </h1>
@@ -99,19 +97,9 @@ export default function News() {
                   {/* Content Box */}
                   <div className="p-8 flex flex-col flex-grow justify-between">
                     <div>
-                      <span className="text-xs font-bold text-[var(--color-accent)] uppercase tracking-wider block mb-2">
-                        {new Date(flyer.created).toLocaleDateString("de-DE", {
-                          year: "numeric",
-                          month: "long",
-                          day: "numeric",
-                        })}
-                      </span>
                       <h3 className="text-2xl font-light mb-4 tracking-tight text-[var(--color-primary)] group-hover:text-[var(--color-primary)] transition">
-                        {flyer.title}
-                      </h3>
-                      <p className="text-[var(--color-fg)]/70 leading-relaxed line-clamp-4 whitespace-pre-wrap opacity-90">
                         {flyer.description}
-                      </p>
+                      </h3>
                     </div>
 
                     {/* Download Button - styled to match Home page button patterns */}

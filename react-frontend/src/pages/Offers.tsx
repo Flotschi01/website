@@ -51,20 +51,50 @@ export default function Offers() {
   const img = (key: string, fallbackUrl?: string) => imageMap[key] || fallbackUrl || "";
 
   return (
-    <div className="text-[var(--color-fg)] min-h-screen font-sans mt-16 dynamic-theme-wrapper flex flex-col">
+    <div className="text-[var(--color-fg)] min-h-screen font-sans mt-16 dynamic-theme-wrapper flex flex-col overflow-x-hidden">
+{/* --- SECTION 0: HERO & GENERAL INFO (Muted Sage Background) --- */}
+      <section className="bg-[var(--color-bg-sec2)] pt-20 pb-24 px-6 md:px-12 lg:px-24">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+                    {/* Right Column: Clean Vertical Image Frame */}
+        <div className="lg:col-span-5 flex justify-center lg:justify-center">
+          {/* Changed aspect to square, rounded to full, removed background/heavy shadow colors to ensure transparency */}
+          <div className="w-80 max-w-md aspect-square overflow-hidden rounded-full drop-shadow-md">
+            <img 
+              src={img('Titelbild Vereinsseite')} 
+              className="w-full h-full object-contain grayscale-[15%] contrast-[105%] transition-transform duration-500 hover:scale-105" 
+              alt="Präsidentin" 
+            />
+          </div>
+        </div>
+          {/* Left Column: Bold Asymmetric Typography */}
+          <div className="lg:col-span-7 space-y-8">
+            <h1 className="text-4xl md:text-6xl font-light tracking-tight text-[var(--color-primary)] leading-tight max-w-2xl">
+              {t('Willkommen', 'Lade Inhalt')}
+            </h1>
+            
+            <div className="space-y-6 max-w-xl pt-4">
+              <div className="border-l-2 border-[var(--color-primary)] pl-6">
+                <p className="text-lg leading-relaxed whitespace-pre-wrap opacity-90">
+                  {t('Willkommen_untertext', 'Lade Inhalt')}
+                </p>
+              </div>
+            </div>
+          </div>
 
+
+
+        </div>
+      </section>
       {/* SECTION 1: Tierkommunikation (Muted Sage) */}
       <section className="bg-[var(--color-bg-hero)] py-24 px-6 md:px-12 lg:px-24">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           <div className="lg:col-span-7 space-y-6">
-            <span className="text-xs font-bold uppercase tracking-widest text-[var(--color-accent)] bg-[var(--color-bg-sec2)] px-3 py-1 rounded-full inline-block">
-              Angebot 01
-            </span>
-            <h2 className="text-4xl md:text-5xl font-light tracking-tight text-[var(--color-primary)] leading-tight">
-              {t('offer_1_title', 'Tierkommunikation')}
+            {/* Optimized for long German words */}
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-light tracking-tight text-[var(--color-primary)] leading-tight break-words hyphens-auto">
+              {t('Tierkommunikation_titel', 'Lade Inhalt')}
             </h2>
             <p className="text-lg md:text-xl font-light leading-relaxed opacity-90 whitespace-pre-wrap">
-              {t('Tierkommunikation', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.')}
+              {t('Tierkommunikation', 'Lade Inhalt')}
             </p>
           </div>
           <div className="lg:col-span-5 flex justify-center">
@@ -83,14 +113,11 @@ export default function Offers() {
       <section className="bg-[var(--color-bg-sec1)] py-24 px-6 md:px-12 lg:px-24">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           <div className="lg:col-span-7 space-y-6 lg:order-2 order-1">
-            <span className="text-xs font-bold uppercase tracking-widest text-[var(--color-accent)] bg-[var(--color-bg-sec2)] px-3 py-1 rounded-full inline-block">
-              Angebot 02
-            </span>
-            <h2 className="text-4xl md:text-5xl font-light tracking-tight text-[var(--color-primary)] leading-tight">
-              {t('offer_2_title', 'Bewusste spirituelle Begleitung für alle Geschöpfe')}
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-light tracking-tight text-[var(--color-primary)] leading-tight break-words hyphens-auto">
+              {t('spirituelle Begleitung_titel', 'Lade Inhalt')}
             </h2>
             <p className="text-lg md:text-xl font-light leading-relaxed opacity-90 whitespace-pre-wrap">
-              {t('spirituelle Begleitung', 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.')}
+              {t('spirituelle Begleitung', 'Lade Inhalt')}
             </p>
           </div>
           <div className="lg:col-span-5 flex justify-center lg:order-1 order-2">
@@ -109,13 +136,11 @@ export default function Offers() {
       <section className="bg-[var(--color-bg-sec3)] py-24 px-6 md:px-12 lg:px-24">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           <div className="lg:col-span-7 space-y-6">
-            <span className="text-xs font-bold uppercase tracking-widest text-[var(--color-accent)] bg-[var(--color-bg-sec2)] px-3 py-1 rounded-full inline-block">
-              Angebot 03
-            </span>
-            <h2 className="text-4xl md:text-5xl font-light tracking-tight text-[var(--color-primary)] leading-tight">
-              {t('offer_3_title', 'Energieharmonisierung für Raum und Stall')}
+            {/* Optimized for long German words */}
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-light tracking-tight text-[var(--color-primary)] leading-tight break-words hyphens-auto">
+              {t('Energieharmonisierung_titel', 'Lade Inhalt')}
             </h2>
-            <p className="text-lg md:text-xl font-light leading-relaxed opacity-90 whitespace-pre-wrap">
+            <p className="text-lg w-full md:text-xl font-light leading-relaxed opacity-90 whitespace-pre-wrap">
               {t('Energieharmonisierung', 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.')}
             </p>
           </div>
@@ -135,11 +160,8 @@ export default function Offers() {
       <section className="bg-[var(--color-bg-sec2)] py-24 px-6 md:px-12 lg:px-24">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           <div className="lg:col-span-7 space-y-6 lg:order-2 order-1">
-            <span className="text-xs font-bold uppercase tracking-widest text-[var(--color-accent)] bg-[var(--color-bg-hero)] px-3 py-1 rounded-full inline-block">
-              Angebot 04
-            </span>
-            <h2 className="text-4xl md:text-5xl font-light tracking-tight text-[var(--color-primary)] leading-tight">
-              {t('offer_4_title', 'Workshops & Seminare')}
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-light tracking-tight text-[var(--color-primary)] leading-tight break-words hyphens-auto">
+              {t('Workshops_titel', 'Lade Inhalt')}
             </h2>
             <p className="text-lg md:text-xl font-light leading-relaxed opacity-90 whitespace-pre-wrap">
               {t('Workshops', 'Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.')}
