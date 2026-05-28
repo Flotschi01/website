@@ -84,7 +84,7 @@ export default function News() {
                 >
                   {/* Visual Image Container */}
                   {flyer.image && (
-                    <div className="overflow-hidden bg-[var(--color-bg-hero)] relative aspect-[4/3] border-b border-[var(--color-fg)]/10">
+                    <div className="overflow-hidden bg-[var(--color-bg-sec3)] relative aspect-[4/3] border-b border-[var(--color-fg)]/10">
                       <img
                         src={pb.files.getUrl(flyer, flyer.image)}
                         alt={flyer.title}
@@ -108,7 +108,7 @@ export default function News() {
                         href={pb.files.getUrl(flyer, flyer.image)}
                         target="_blank"
                         rel="noreferrer"
-                        className="bg-[var(--color-fg)] text-[var(--color-bg-hero)] group-hover:bg-[var(--color-primary)] group-hover:text-[var(--color-bg-hero)] px-5 py-2 rounded-xl text-sm font-bold uppercase tracking-wider transition flex items-center gap-2"
+                        className="inline-flex items-center gap-2 text-base font-medium text-[var(--color-primary)] bg-[var(--color-bg-sec1)] hover:bg-[var(--color-bg-sec3)] border border-[var(--color-primary)]/20 px-4 py-2 rounded-lg transition-all duration-200 shadow-sm hover:shadow active:scale-[0.98] relative z-10"
                       >
                         Ansehen / Download
                       </a>
