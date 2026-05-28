@@ -8,9 +8,9 @@ const Footer: React.FC<FooterProps> = ({ className = "" }) => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className={`pd-20 border-t border-fg/10 py-12 ${className} bg-bg-sec3`} >
+    <footer className={`pd-20 border-t border-fg/10 py-12 ${className} bg-[var(--color-nav)]`} >
       <div className="max-w-5xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-6">
-        
+
         {/* Brand & Version */}
         <div className="text-center md:text-left">
           <h2 className="text-xl font-bold text-primary mb-1">Verein Linmezis</h2>
