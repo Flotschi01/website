@@ -31,12 +31,12 @@ export default function App() {
               <Route path="/" element={<Offers />} />
               <Route path="/news" element={<News />} />
               <Route path="/verein" element={<Home />} />
+              <Route path="/impressum" element={<Impressum />} />
               <Route path="*" element={<Navigate to="/" replace />} />
             </Route>
 
             {/* 3. This route sits outside the UserLayout and won't have the Navbar/Footer */}
             <Route path="/admin" element={<AdminDashboard />} />
-            <Route path="/impressum" element={<Impressum />} />
           </Routes>
           </ThemeProvider>
         </main>

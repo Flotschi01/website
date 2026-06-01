@@ -1,5 +1,6 @@
 import { useEffect, useState, useCallback } from "react";
 import pb from '../lib/pocketbase';
+import { SmartText } from "../lib/SmartText";
 
 interface TextRecord {
   title: string; 
@@ -11,7 +12,7 @@ interface ImageRecord {
   collectionId: string;
   collectionName: string;
   title: string; 
-  image: string; 
+  croppedImage: string; 
 }
 
 export default function Home() {
@@ -32,7 +33,7 @@ export default function Home() {
       setTextMap(textMapping);
 
       const imageMapping = imageData.reduce((acc, item) => {
-        acc[item.title] = pb.files.getUrl(item, item.image);
+        acc[item.title] = pb.files.getUrl(item, item.croppedImage);
         return acc;
       }, {} as Record<string, string>);
       setImageMap(imageMapping);
@@ -70,14 +71,14 @@ export default function Home() {
           {/* Left Column: Bold Asymmetric Typography */}
           <div className="lg:col-span-7 space-y-8">
             <h1 className="text-4xl md:text-6xl font-light tracking-tight text-[var(--color-primary)] leading-tight max-w-2xl">
-              {t('Titel Abschnitt 1', 'Lade Inhalt')}
+              <SmartText content={t('Titel Abschnitt 1', 'Lade Inhalt')} />
             </h1>
             
             <div className="space-y-6 max-w-xl pt-4">
               <div className="border-l-2 border-[var(--color-primary)] pl-6">
                 <h3 className="text-md font-bold uppercase tracking-widest text-[var(--color-accent)] mb-2">Allgemeines</h3>
                 <p className="text-lg leading-relaxed whitespace-pre-wrap opacity-90">
-                  {t('Verein_1', 'Lade Inhalt')}
+                  <SmartText content={t('Verein_1', 'Lade Inhalt')} />
                 </p>
               </div>
             </div>
@@ -95,10 +96,10 @@ export default function Home() {
           {/* Left: Activities Text */}
           <div className="lg:col-span-6 space-y-6">
             <h2 className="text-3xl md:text-4xl font-light tracking-tight text-[var(--color-primary)] leading-tight">
-              {textMap['Vereinstätigkeiten']?.replace(/\\n/g, '\n') || 'Lade Inhalt'}
+              <SmartText content={t('Vereinstätigkeiten', 'Lade Inhalt')} />
             </h2>
             <p className="text-lg md:text-xl font-light leading-relaxed opacity-90 whitespace-pre-wrap">
-              {textMap['Verein_2']?.replace(/\\n/g, '\n') || 'Lade Inhalt'}
+              <SmartText content={t('Verein_2', 'Lade Inhalt')} />
             </p>
           </div>
 
@@ -146,10 +147,10 @@ export default function Home() {
           {/* Right: President Info */}
           <div className="lg:col-span-6 space-y-6 order-1 lg:order-2">
             <h2 className="text-3xl md:text-4xl font-normal text-[var(--color-primary)]">
-              {t('Name', 'Lade Inhalt')}
+              <SmartText content={t('Name', 'Lade Inhalt')} />
             </h2>
             <p className="text-lg leading-loose opacity-80 max-w-xl whitespace-pre-wrap">
-              {t('Beschreibung Präsidentin', 'Lorem ipsum dolor sit amet.')?.replace(/\\n/g, '\n')}
+              <SmartText content={t('Beschreibung Präsidentin', 'Lorem ipsum dolor sit amet.')} />
             </p>
           </div>
 
@@ -163,7 +164,7 @@ export default function Home() {
           {/* Left: Qualifications List */}
           <div className="lg:col-span-6 space-y-6">
             <h2 className="text-3xl md:text-4xl font-light tracking-tight text-[var(--color-primary)] leading-tight">
-                {t('Qualifikationen_Überschrift', 'Lade Inhalt')}
+                <SmartText content={t('Qualifikationen_Überschrift', 'Lade Inhalt')} />
             </h2>
           </div>
 
@@ -171,7 +172,7 @@ export default function Home() {
           <div className="lg:col-span-6 flex flex-col justify-center space-y-12 lg:pl-12">
             <div className="relative pt-4">
               <div className="text-xl font-medium text-[var(--color-primary)] relative z-10 pl-2">
-                {t('Qualifikationen 1', 'Lade Inhalt')}
+                <SmartText content={t('Qualifikationen 1', 'Lade Inhalt')} />
               </div>
               <div className="relative pt-4">
               <a 
@@ -215,7 +216,7 @@ export default function Home() {
             
             <div className="relative pt-4">
               <div className="text-xl font-medium text-[var(--color-primary)] relative z-10 pl-2">
-                {t('Qualifikationen 2', 'Lade Inhalt')}
+                <SmartText content={t('Qualifikationen 2', 'Lade Inhalt')} />
               </div>
                             <div className="relative pt-4">
               <a 
@@ -242,7 +243,49 @@ export default function Home() {
 
         </div>
       </section>
+{/* --- SECTION 4: QUALIFICATIONS (Light Warm Amber Tint) --- */}
+      <section className="bg-[var(--color-bg-sec1)] py-24 px-6 md:px-12 lg:px-24">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          
+          {/* Left: Qualifications List */}
+          <div className="lg:col-span-6 space-y-6">
+            <h2 className="text-3xl md:text-4xl font-light tracking-tight text-[var(--color-primary)] leading-tight">
+                <SmartText content={t('Fördermitgliedschaft_titel', 'Lade Inhalt')} />
+            </h2>
+            <p className="text-lg md:text-xl font-light leading-relaxed opacity-90 whitespace-pre-wrap">
+              <SmartText content={t('Fördermitgliedschaft', 'Lade Inhalt')} /> 
+            </p>
+          </div>
 
+          {/* Right: Qualification Items */}
+          <div className="lg:col-span-6 flex flex-col justify-center space-y-12 lg:pl-12">
+            <div className="relative pt-4">
+              <div className="text-xl font-medium text-[var(--color-primary)] relative z-10 pl-2">
+                <p className="text-[var(--color-primary)]">Antrag auf Fördermitgliedschaft</p>
+              </div>
+              <div className="relative pt-4">
+              <a 
+                href="/Antrag_Fördermitgliedschaft.pdf" // Replace with your actual PDF link or dynamic state
+                download="Antrag_Fördermitgliedschaft.pdf"    // Forces browser download instead of navigation
+                className="inline-flex items-center gap-2 text-base font-medium text-[var(--color-primary)] bg-[var(--color-bg-sec3)] hover:bg-[var(--color-bg-sec3)] border border-[var(--color-primary)]/20 px-4 py-2 rounded-lg transition-all duration-200 shadow-sm hover:shadow active:scale-[0.98] relative z-10"
+              >
+                {/* Minimalist Download Icon */}
+                <svg 
+                  className="w-4 h-4 text-[var(--color-primary)]" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  strokeWidth="2" 
+                  viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                </svg>
+                <p className="text-[var(--color-primary)]">Download</p>
+                 </a>
+            </div>
+            </div>
+            </div>
+            </div>
+      </section>
     </div>
   );
 }
