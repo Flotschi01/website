@@ -1,5 +1,5 @@
 import React from 'react';
-import { Facebook, Instagram, Phone, Mail, MapPin, Underline } from 'lucide-react';
+import { Facebook, Instagram, Phone, Mail, MapPin } from 'lucide-react';
 
 interface FooterProps {
   className?: string;
