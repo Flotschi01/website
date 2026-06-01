@@ -102,15 +102,21 @@ export default function Home() {
             </p>
           </div>
 
-          {/* Right: Activities Image */}
-          <div className="lg:col-span-6 flex justify-center">
-            <div className="w-full max-w-lg aspect-[4/3] overflow-hidden shadow-lg rounded-xl">
+          {/* Left: President Image */}
+          <div className="lg:col-span-5 flex flex-col items-center lg:items-end order-2 lg:order-1">
+            {/* Image Container */}
+            <div className="w-full max-w-md aspect-[3/4] overflow-hidden shadow-lg rounded-xl">
               <img 
                 src={img('Vereinstätigkeiten')} 
                 className="w-full h-full object-cover grayscale-[15%] contrast-[105%] transition-transform duration-500 hover:scale-105" 
-                alt="Vereinstätigkeiten" 
+                alt="Präsidentin Profil" 
               />
             </div>
+            
+            {/* Copyright Text */}
+            <p className="text-gray-400 text-xs mt-2 text-center lg:text-right w-full max-w-md">
+              © Claudia H-M Photography
+            </p>
           </div>
 
         </div>

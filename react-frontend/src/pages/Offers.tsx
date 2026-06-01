@@ -97,14 +97,21 @@ export default function Offers() {
               {t('Tierkommunikation', 'Lade Inhalt')}
             </p>
           </div>
-          <div className="lg:col-span-5 flex justify-center">
-            <div className="w-full max-w-md aspect-[4/3] overflow-hidden shadow-lg rounded-xl">
-              <img
-                src={img('Tierkommunikation')}
-                className="w-full h-full object-cover grayscale-[15%] contrast-[105%] transition-transform duration-500 hover:scale-105"
-                alt="Tierkommunikation"
+          {/* Left: President Image */}
+          <div className="lg:col-span-5 flex flex-col items-center lg:items-end order-2 lg:order-1">
+            {/* Image Container */}
+            <div className="w-full max-w-md aspect-[3/4] overflow-hidden shadow-lg rounded-xl">
+              <img 
+                src={img('Tierkommunikation')} 
+                className="w-full h-full object-cover grayscale-[15%] contrast-[105%] transition-transform duration-500 hover:scale-105" 
+                alt="Präsidentin Profil" 
               />
             </div>
+            
+            {/* Copyright Text */}
+            <p className="text-gray-400 text-xs mt-2 text-center lg:text-right w-full max-w-md">
+              © Claudia H-M Photography
+            </p>
           </div>
         </div>
       </section>
