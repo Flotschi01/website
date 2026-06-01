@@ -71,14 +71,14 @@ export default function Home() {
           {/* Left Column: Bold Asymmetric Typography */}
           <div className="lg:col-span-7 space-y-8">
             <h1 className="text-4xl md:text-6xl font-light tracking-tight text-[var(--color-primary)] leading-tight max-w-2xl">
-              <SmartText content={t('Titel Abschnitt 1', 'Lade Inhalt')} />
+              <SmartText content={t('Titel Abschnitt 1', 'Lade Inhalt')} collapsible={true}/>
             </h1>
             
             <div className="space-y-6 max-w-xl pt-4">
               <div className="border-l-2 border-[var(--color-primary)] pl-6">
                 <h3 className="text-md font-bold uppercase tracking-widest text-[var(--color-accent)] mb-2">Allgemeines</h3>
                 <p className="text-lg leading-relaxed whitespace-pre-wrap opacity-90">
-                  <SmartText content={t('Verein_1', 'Lade Inhalt')} />
+                  <SmartText content={t('Verein_1', 'Lade Inhalt')} collapsible={true}/>
                 </p>
               </div>
             </div>
@@ -96,10 +96,10 @@ export default function Home() {
           {/* Left: Activities Text */}
           <div className="lg:col-span-6 space-y-6">
             <h2 className="text-3xl md:text-4xl font-light tracking-tight text-[var(--color-primary)] leading-tight">
-              <SmartText content={t('Vereinstätigkeiten', 'Lade Inhalt')} />
+              <SmartText content={t('Vereinstätigkeiten', 'Lade Inhalt')} collapsible={true}/>
             </h2>
             <p className="text-lg md:text-xl font-light leading-relaxed opacity-90 whitespace-pre-wrap">
-              <SmartText content={t('Verein_2', 'Lade Inhalt')} />
+              <SmartText content={t('Verein_2', 'Lade Inhalt')} collapsible={true}/>
             </p>
           </div>
 
@@ -147,10 +147,10 @@ export default function Home() {
           {/* Right: President Info */}
           <div className="lg:col-span-6 space-y-6 order-1 lg:order-2">
             <h2 className="text-3xl md:text-4xl font-normal text-[var(--color-primary)]">
-              <SmartText content={t('Name', 'Lade Inhalt')} />
+              <SmartText content={t('Name', 'Lade Inhalt')} collapsible={true}/>
             </h2>
             <p className="text-lg leading-loose opacity-80 max-w-xl whitespace-pre-wrap">
-              <SmartText content={t('Beschreibung Präsidentin', 'Lorem ipsum dolor sit amet.')} />
+              <SmartText content={t('Beschreibung Präsidentin', 'Lade Inhalt')} collapsible={true}/>
             </p>
           </div>
 
@@ -164,7 +164,7 @@ export default function Home() {
           {/* Left: Qualifications List */}
           <div className="lg:col-span-6 space-y-6">
             <h2 className="text-3xl md:text-4xl font-light tracking-tight text-[var(--color-primary)] leading-tight">
-                <SmartText content={t('Qualifikationen_Überschrift', 'Lade Inhalt')} />
+                <SmartText content={t('Qualifikationen_Überschrift', 'Lade Inhalt')} collapsible={true}/>
             </h2>
           </div>
 
@@ -172,7 +172,7 @@ export default function Home() {
           <div className="lg:col-span-6 flex flex-col justify-center space-y-12 lg:pl-12">
             <div className="relative pt-4">
               <div className="text-xl font-medium text-[var(--color-primary)] relative z-10 pl-2">
-                <SmartText content={t('Qualifikationen 1', 'Lade Inhalt')} />
+                <SmartText content={t('Qualifikationen 1', 'Lade Inhalt')} collapsible={true}/>
               </div>
               <div className="relative pt-4">
               <a 
@@ -216,7 +216,7 @@ export default function Home() {
             
             <div className="relative pt-4">
               <div className="text-xl font-medium text-[var(--color-primary)] relative z-10 pl-2">
-                <SmartText content={t('Qualifikationen 2', 'Lade Inhalt')} />
+                <SmartText content={t('Qualifikationen 2', 'Lade Inhalt')} collapsible={true}/>
               </div>
                             <div className="relative pt-4">
               <a 
@@ -250,10 +250,10 @@ export default function Home() {
           {/* Left: Qualifications List */}
           <div className="lg:col-span-6 space-y-6">
             <h2 className="text-3xl md:text-4xl font-light tracking-tight text-[var(--color-primary)] leading-tight">
-                <SmartText content={t('Fördermitgliedschaft_titel', 'Lade Inhalt')} />
+                <SmartText content={t('Fördermitgliedschaft_titel', 'Lade Inhalt')} collapsible={true}/>
             </h2>
             <p className="text-lg md:text-xl font-light leading-relaxed opacity-90 whitespace-pre-wrap">
-              <SmartText content={t('Fördermitgliedschaft', 'Lade Inhalt')} /> 
+              <SmartText content={t('Fördermitgliedschaft', 'Lade Inhalt')} collapsible={true}/> 
             </p>
           </div>
 
