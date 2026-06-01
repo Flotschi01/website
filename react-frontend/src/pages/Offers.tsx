@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from "react";
 import pb from '../lib/pocketbase';
-
+import { SmartText } from '../lib/SmartText';
 interface TextRecord {
   title: string;
   text: string;
@@ -11,7 +11,7 @@ interface ImageRecord {
   collectionId: string;
   collectionName: string;
   title: string;
-  image: string;
+  croppedImage: string;
 }
 
 export default function Offers() {
@@ -32,7 +32,7 @@ export default function Offers() {
       setTextMap(textMapping);
 
       const imageMapping = imageData.reduce((acc, item) => {
-        acc[item.title] = pb.files.getUrl(item, item.image);
+        acc[item.title] = pb.files.getUrl(item, item.croppedImage);
         return acc;
       }, {} as Record<string, string>);
       setImageMap(imageMapping);
@@ -46,7 +46,7 @@ export default function Offers() {
     fetchWebsiteAssets();
   }, [fetchWebsiteAssets]);
 
-  // Hilfsfunktionen für dynamische Inhalte
+  //Hilfsfunktionen für dynamische Inhalte
   const t = (key: string, fallback: string) => textMap[key] || fallback;
   const img = (key: string, fallbackUrl?: string) => imageMap[key] || fallbackUrl || "";
 
@@ -69,13 +69,13 @@ export default function Offers() {
           {/* Left Column: Bold Asymmetric Typography */}
           <div className="lg:col-span-7 space-y-8">
             <h1 className="text-4xl md:text-6xl font-light tracking-tight text-[var(--color-primary)] leading-tight max-w-2xl">
-              {t('Willkommen', 'Lade Inhalt')}
+              <SmartText content={t('Willkommen', 'Lade Inhalt')} />
             </h1>
             
             <div className="space-y-6 max-w-xl pt-4">
               <div className="border-l-2 border-[var(--color-primary)] pl-6">
                 <p className="text-lg leading-relaxed whitespace-pre-wrap opacity-90">
-                  {t('Willkommen_untertext', 'Lade Inhalt')}
+                  <SmartText content={t('Willkommen_untertext', 'Lade Inhalt')} />
                 </p>
               </div>
             </div>
@@ -91,10 +91,10 @@ export default function Offers() {
           <div className="lg:col-span-7 space-y-6">
             {/* Optimized for long German words */}
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-light tracking-tight text-[var(--color-primary)] leading-tight break-words hyphens-auto">
-              {t('Tierkommunikation_titel', 'Lade Inhalt')}
+              <SmartText content={t('Tierkommunikation_titel', 'Lade Inhalt')} />
             </h2>
             <p className="text-lg md:text-xl font-light leading-relaxed opacity-90 whitespace-pre-wrap">
-              {t('Tierkommunikation', 'Lade Inhalt')}
+              <SmartText content={t('Tierkommunikation', 'Lade Inhalt')} collapsible={true} />
             </p>
           </div>
           {/* Left: President Image */}
@@ -121,10 +121,10 @@ export default function Offers() {
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           <div className="lg:col-span-7 space-y-6 lg:order-2 order-1">
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-light tracking-tight text-[var(--color-primary)] leading-tight break-words hyphens-auto">
-              {t('spirituelle Begleitung_titel', 'Lade Inhalt')}
+              <SmartText content={t('spirituelle Begleitung_titel', 'Lade Inhalt')} />
             </h2>
             <p className="text-lg md:text-xl font-light leading-relaxed opacity-90 whitespace-pre-wrap">
-              {t('spirituelle Begleitung', 'Lade Inhalt')}
+              <SmartText content={t('spirituelle Begleitung', 'Lade Inhalt')} collapsible={true} />
             </p>
           </div>
           <div className="lg:col-span-5 flex justify-center lg:order-1 order-2">
@@ -145,10 +145,10 @@ export default function Offers() {
           <div className="lg:col-span-7 space-y-6">
             {/* Optimized for long German words */}
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-light tracking-tight text-[var(--color-primary)] leading-tight break-words hyphens-auto">
-              {t('Energieharmonisierung_titel', 'Lade Inhalt')}
+              <SmartText content={t('Energieharmonisierung_titel', 'Lade Inhalt')} />
             </h2>
             <p className="text-lg w-full md:text-xl font-light leading-relaxed opacity-90 whitespace-pre-wrap">
-              {t('Energieharmonisierung', 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.')}
+              <SmartText content={t('Energieharmonisierung', 'Lade Inhalt')} collapsible={true} />
             </p>
           </div>
           <div className="lg:col-span-5 flex justify-center">
@@ -168,10 +168,10 @@ export default function Offers() {
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           <div className="lg:col-span-7 space-y-6 lg:order-2 order-1">
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-light tracking-tight text-[var(--color-primary)] leading-tight break-words hyphens-auto">
-              {t('Workshops_titel', 'Lade Inhalt')}
+              <SmartText content={t('Workshops_titel', 'Lade Inhalt')} />
             </h2>
             <p className="text-lg md:text-xl font-light leading-relaxed opacity-90 whitespace-pre-wrap">
-              {t('Workshops', 'Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.')}
+              <SmartText content={t('Workshops', 'Lade Inhalt')} collapsible={true} />
             </p>
           </div>
           <div className="lg:col-span-5 flex justify-center lg:order-1 order-2">

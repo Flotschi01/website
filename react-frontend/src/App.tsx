@@ -6,6 +6,7 @@ import AdminDashboard from "./admin/AdminDashboard";
 import News from "./pages/News";
 import Offers from "./pages/Offers";
 import ThemeProvider from "./lib/ThemeProvider";
+import Impressum from "./pages/impressum";
 // 1. Create a Layout component for your standard pages
 function UserLayout() {
   return (
@@ -35,6 +36,7 @@ export default function App() {
 
             {/* 3. This route sits outside the UserLayout and won't have the Navbar/Footer */}
             <Route path="/admin" element={<AdminDashboard />} />
+            <Route path="/impressum" element={<Impressum />} />
           </Routes>
           </ThemeProvider>
         </main>

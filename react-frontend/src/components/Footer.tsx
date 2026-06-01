@@ -1,5 +1,5 @@
 import React from 'react';
-import { Facebook, Instagram, Phone, Mail, MapPin } from 'lucide-react';
+import { Facebook, Instagram, Phone, Mail, MapPin, Underline } from 'lucide-react';
 
 interface FooterProps {
   className?: string;
@@ -17,6 +17,9 @@ const Footer: React.FC<FooterProps> = ({ className = "" }) => {
           <h2 className="text-xl font-bold text-primary mb-1">Verein Linmezis</h2>
           <p className="text-fg/60 text-sm">
             &copy; {currentYear} Florian Lehmerhofer  
+          </p>
+          <p className="text-fg/60 text-sm mt-1">
+            <a href="/impressum" className="hover:text-secondary transition-colors"><u>Impressum</u></a>
           </p>
         </div>
 
