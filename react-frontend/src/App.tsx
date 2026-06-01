@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, Outlet } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Outlet, Navigate } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
@@ -30,6 +30,7 @@ export default function App() {
               <Route path="/" element={<Offers />} />
               <Route path="/news" element={<News />} />
               <Route path="/verein" element={<Home />} />
+              <Route path="*" element={<Navigate to="/" replace />} />
             </Route>
 
             {/* 3. This route sits outside the UserLayout and won't have the Navbar/Footer */}

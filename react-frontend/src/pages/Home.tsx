@@ -169,7 +169,7 @@ export default function Home() {
               </div>
               <div className="relative pt-4">
               <a 
-                href="/Zivildiensterklaerung.pdf" // Replace with your actual PDF link or dynamic state
+                href="https://vereinlinmezis.com/Zertifikat_Tierkommunikation.pdf" // Replace with your actual PDF link or dynamic state
                 download="Tierkommunikation.pdf"    // Forces browser download instead of navigation
                 className="inline-flex items-center gap-2 text-base font-medium text-[var(--color-primary)] bg-[var(--color-bg-sec1)] hover:bg-[var(--color-bg-sec3)] border border-[var(--color-primary)]/20 px-4 py-2 rounded-lg transition-all duration-200 shadow-sm hover:shadow active:scale-[0.98] relative z-10"
               >
@@ -188,8 +188,8 @@ export default function Home() {
             </div>
                           <div className="relative pt-4">
               <a 
-                href="/Zivildiensterklaerung.pdf" // Replace with your actual PDF link or dynamic state
-                download="Tierkommunikation.pdf"    // Forces browser download instead of navigation
+                href="https://vereinlinmezis.com/Zertifikat_Tierenergetik.pdf" // Replace with your actual PDF link or dynamic state
+                download="Tierenergetik.pdf"    // Forces browser download instead of navigation
                 className="inline-flex items-center gap-2 text-base font-medium text-[var(--color-primary)] bg-[var(--color-bg-sec1)] hover:bg-[var(--color-bg-sec3)] border border-[var(--color-primary)]/20 px-4 py-2 rounded-lg transition-all duration-200 shadow-sm hover:shadow active:scale-[0.98] relative z-10"
               >
                 {/* Minimalist Download Icon */}
@@ -213,7 +213,7 @@ export default function Home() {
               </div>
                             <div className="relative pt-4">
               <a 
-                href="/Zivildiensterklaerung.pdf" // Replace with your actual PDF link or dynamic state
+                href="https://vereinlinmezis.com/Zertifikate_Homöopathie.pdf" // Replace with your actual PDF link or dynamic state
                 download="Homöopathie.pdf"    // Forces browser download instead of navigation
                 className="inline-flex items-center gap-2 text-base font-medium text-[var(--color-primary)] bg-[var(--color-bg-sec1)] hover:bg-[var(--color-bg-sec3)] border border-[var(--color-primary)]/20 px-4 py-2 rounded-lg transition-all duration-200 shadow-sm hover:shadow active:scale-[0.98] relative z-10"
               >
