@@ -7,6 +7,7 @@ import News from "./pages/News";
 import Offers from "./pages/Offers";
 import ThemeProvider from "./lib/ThemeProvider";
 import Impressum from "./pages/impressum";
+import Datenschutz from "./pages/Datenschutzerklärung";
 // 1. Create a Layout component for your standard pages
 function UserLayout() {
   return (
@@ -32,6 +33,7 @@ export default function App() {
               <Route path="/news" element={<News />} />
               <Route path="/verein" element={<Home />} />
               <Route path="/impressum" element={<Impressum />} />
+              <Route path="/datenschutz" element={<Datenschutz />} />
               <Route path="*" element={<Navigate to="/" replace />} />
             </Route>
 

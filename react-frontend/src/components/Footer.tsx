@@ -16,10 +16,14 @@ const Footer: React.FC<FooterProps> = ({ className = "" }) => {
         <div className="text-center md:text-left w-full md:w-auto">
           <h2 className="text-xl font-bold text-primary mb-1">Verein Linmezis</h2>
           <p className="text-fg/60 text-sm">
+            Design: 
             &copy; {currentYear} Florian Lehmerhofer  
           </p>
           <p className="text-fg/60 text-sm mt-1">
             <a href="/impressum" className="hover:text-secondary transition-colors"><u>Impressum</u></a>
+          </p>
+          <p className="text-fg/60 text-sm mt-1">
+            <a href="/datenschutz" className="hover:text-secondary transition-colors"><u>Datenschutz</u></a>
           </p>
         </div>
 
