@@ -73,6 +73,27 @@ export default function Impressum() {
           </ul>
         </div>
 
+        <div className="pt-2">
+          <p><strong className="text-lg font-semibold text-slate-900 block border-b border-slate-100 pb-1 mb-2">Urheberrecht</strong></p>
+          <p>Die Bilder, Fotos und Grafiken auf der Website sind urheberrechtlich geschützt.
+            Die Rechte liegen entweder beim Verein Faszination Tierwelt Linmezis oder bei den jeweiligen Fotografen und Künstlern, die auf der Website genannt werden.
+          </p>
+        </div>
+        <div className="pt-2">
+          <p><strong className="text-lg font-semibold text-slate-900 block border-b border-slate-100 pb-1 mb-2">Dieses Impressum gilt auch für weitere Onlineauftritte:</strong></p>
+          <ul className="list-disc list-outside space-y-1 text-slate-700 pl-1">
+            <li>
+              <a href="https://www.facebook.com/profile.php?id=61581485908254" className="flex items-start gap-3 hover:text-secondary transition-colors group">
+                https://www.facebook.com/profile.php?id=61581485908254
+              </a>
+            </li>
+            <li>
+              <a href="https://www.instagram.com/evelinehollerer/" className="flex items-start gap-3 hover:text-secondary transition-colors group">
+                https://www.instagram.com/evelinehollerer/
+              </a>
+            </li>
+          </ul>
+        </div>
         <div className="mt-8 p-6 bg-indigo-50/50 rounded-2xl border border-indigo-100/80 space-y-3">
           <h3 className="text-lg font-bold text-slate-900">Kontakt & Erreichbarkeit</h3>
           <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 text-sm text-slate-700">
@@ -86,6 +107,7 @@ export default function Impressum() {
             <p><strong className="font-semibold text-slate-900">Telefon:</strong> <a href="tel:+436767484312" className="hover:text-slate-900 transition-colors">+43 676 7484312</a></p>
           </div>
         </div>
+
       </section>
     </main>
   );
