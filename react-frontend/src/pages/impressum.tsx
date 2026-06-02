@@ -19,7 +19,7 @@ export default function Impressum() {
 
         <div className="space-y-3">
           <p><strong className="text-lg font-semibold text-slate-900 block border-b border-slate-100 pb-1">Vereinszweck:</strong></p>
-          <p><strong className="font-semibold text-slate-900">Allgemein:</strong>Ethischer Tierschutz Verein</p>
+          <p><strong className="font-semibold text-slate-900">Allgemein:</strong> Ethischer Tierschutz Verein</p>
           
           <div className="space-y-4 text-slate-600 leading-relaxed pl-1 border-l-2 border-indigo-500/30">
             <p>
@@ -69,7 +69,7 @@ export default function Impressum() {
           <p><strong className="text-lg font-semibold text-slate-900 block border-b border-slate-100 pb-1 mb-2">Organschaftliche Vertreter:</strong></p>
           <ul className="list-disc list-inside space-y-1 text-slate-700 pl-1">
             <li>Eveline Höllerer, Vereinspräsidentin</li>
-            <li>Josef Höllerer, Vereinsviezepräsident</li>
+            <li>Josef Höllerer, Vereinsvizepräsident</li>
           </ul>
         </div>
 
