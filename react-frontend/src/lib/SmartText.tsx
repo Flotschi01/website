@@ -10,7 +10,7 @@ const parseInlineStyles = (text: string): React.ReactNode[] => {
 
   return tokens.map((token, index) => {
     if (token.startsWith('*') && token.endsWith('*')) {
-      return <strong key={index} style={{ fontWeight: 700 }}>{token.slice(1, -1)}</strong>;
+      return <strong key={index} style={{ fontWeight: 600 }}>{token.slice(1, -1)}</strong>;
     }
     if (token.startsWith('_') && token.endsWith('_')) {
       return <em key={index}>{token.slice(1, -1)}</em>;
