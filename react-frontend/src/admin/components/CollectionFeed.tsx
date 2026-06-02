@@ -135,15 +135,19 @@ export default function CollectionFeed({ config }: Props) {
   const currentEditingRecord = records.find(r => r.id === editingId);
   const activeRecordRatio = currentEditingRecord?.aspect_ratio || '4/3';
 
-  const fetchRecords = useCallback(async () => {
+const fetchRecords = useCallback(async () => {
     try {
       const data = await pb.collection(config.id).getFullList({ 
         sort: '-created',
-        requestKey: null 
+        // Assign a unique requestKey instead of null. 
+        // PocketBase will automatically cancel duplicate in-flight requests.
+        requestKey: `fetch_${config.id}` 
       });
       setRecords(data);
     } catch (err: any) {
-      if (err.isAbort) return;
+      // The aborted first request will be caught here silently, 
+      // preventing errors in your console.
+      if (err.isAbort) return; 
       console.error(`Error fetching ${config.id}:`, err);
     }
   }, [config.id]);
@@ -162,13 +166,13 @@ export default function CollectionFeed({ config }: Props) {
     fetchRecords();
   };
 
-  const handleUpdate = async (id: string) => {
+const handleUpdate = async (id: string) => {
     const formData = new FormData();
     formData.append(config.textField, editText);
     
     if (config.hasImage) {
-      if (editFile) formData.append('image', editFile); // Nur senden, wenn ein NEUES Original gewählt wurde
-      if (editCroppedFile) formData.append('croppedImage', editCroppedFile); // Der neue Zuschnitt (egal ob von Alt- oder Neubild)
+      if (editFile) formData.append('image', editFile); 
+      if (editCroppedFile) formData.append('croppedImage', editCroppedFile); 
       
       if (editFile || editCroppedFile) {
         formData.append('aspect_ratio', activeRecordRatio);
@@ -176,12 +180,18 @@ export default function CollectionFeed({ config }: Props) {
     }
 
     try {
-      await pb.collection(config.id).update(id, formData);
+      // Pass a unique requestKey for this specific update action
+      await pb.collection(config.id).update(id, formData, {
+        requestKey: `update_${config.id}_${id}`
+      });
+      
       setEditingId(null);
       setEditFile(null);
       setEditCroppedFile(null);
       fetchRecords();
-    } catch (err) {
+    } catch (err: any) {
+      // Silently ignore the aborted first request if they double-clicked
+      if (err.isAbort) return;
       console.error("Error updating record:", err);
     }
   };
