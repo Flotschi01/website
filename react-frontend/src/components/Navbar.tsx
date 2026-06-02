@@ -29,7 +29,7 @@ export default function Navbar() {
 
           {/* Text right after logo - visible only on desktop (md and up) */}
           <span className="hidden md:block text-2xl font-semibold">
-            Verein Faszination Tierwelt Linmezis's
+            Verein Faszination Tierwelt Linmezi's
           </span>
         </div>
 
