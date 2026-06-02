@@ -64,7 +64,7 @@ export const SmartText: React.FC<SmartTextProps> = ({ content, collapsible = fal
       );
     } else {
       if (currentListItems.length > 0) {
-        renderedElements.push(<ul key={`ul-${index}`} className="list-disc list-inside mb-4 pl-4">{currentListItems}</ul>);
+        renderedElements.push(<ul key={`ul-${index}`} className="list-disc list-outside mb-4 pl-8">{currentListItems}</ul>);
         currentListItems = [];
       }
 
@@ -81,7 +81,7 @@ export const SmartText: React.FC<SmartTextProps> = ({ content, collapsible = fal
   });
 
   if (currentListItems.length > 0) {
-    renderedElements.push(<ul key="ul-final" className="list-disc list-inside mb-4 pl-4">{currentListItems}</ul>);
+    renderedElements.push(<ul key="ul-final" className="list-disc list-outside mb-4 pl-8">{currentListItems}</ul>);
   }
 
   if (!collapsible) {

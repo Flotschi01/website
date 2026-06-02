@@ -19,7 +19,7 @@ export default function Impressum() {
 
         <div className="space-y-3">
           <p><strong className="text-lg font-semibold text-slate-900 block border-b border-slate-100 pb-1">Vereinszweck:</strong></p>
-          <p><strong className="font-semibold text-slate-900">Allgemein:</strong> ethischer Tierschutzverein</p>
+          <p><strong className="font-semibold text-slate-900">Allgemein:</strong>Ethischer Tierschutz Verein</p>
           
           <div className="space-y-4 text-slate-600 leading-relaxed pl-1 border-l-2 border-indigo-500/30">
             <p>
@@ -69,14 +69,14 @@ export default function Impressum() {
           <p><strong className="text-lg font-semibold text-slate-900 block border-b border-slate-100 pb-1 mb-2">Organschaftliche Vertreter:</strong></p>
           <ul className="list-disc list-inside space-y-1 text-slate-700 pl-1">
             <li>Eveline Höllerer, Vereinspräsidentin</li>
-            <li>Josef Höllerer, Vereinstpräsidentstellvertreter</li>
+            <li>Josef Höllerer, Vereinsviezepräsident</li>
           </ul>
         </div>
 
         <div className="mt-8 p-6 bg-indigo-50/50 rounded-2xl border border-indigo-100/80 space-y-3">
           <h3 className="text-lg font-bold text-slate-900">Kontakt & Erreichbarkeit</h3>
           <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 text-sm text-slate-700">
-            <p className="sm:col-span-2"><strong className="font-semibold text-slate-900">Postanschrift:</strong> Mottingeramt 8, 3532 Rastenfeld</p>
+            <p className="sm:col-span-2"><strong className="font-semibold text-slate-900">Postanschrift:</strong> Mottingeramt 8/2, 3532 Rastenfeld</p>
             <p>
               <strong className="font-semibold text-slate-900">E-Mail:</strong>{' '}
               <a href="mailto:verein.linmezis@gmx.at" className="text-indigo-600 hover:text-indigo-800 underline underline-offset-4 transition-colors">

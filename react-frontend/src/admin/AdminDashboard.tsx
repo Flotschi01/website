@@ -68,6 +68,12 @@ export default function AdminDashboard() {
         <div className="mb-6 max-w-2xl mx-auto">
           <h2 className="text-2xl font-bold text-[var(--admin-color-text)]">{activeConfig.label}</h2>
           <p className="text-[var(--admin-color-muted)] text-sm">Verwalte deine {activeConfig.label.toLowerCase()} Einträge.</p>
+          <p className="text-[var(--admin-color-muted)] text-sm">
+Für fettgedruckten Text: Setze ein Sternchen vor und nach das Wort (z. B. *dein Text*).<br></br>
+
+Für kursiven Text: Setze einen Unterstrich vor und nach das Wort (z. B. _dein Text_).<br></br>
+
+Für Aufzählungslisten: Beginne eine neue Zeile mit einem Bindestrich gefolgt von einem Leerzeichen (z. B. - Eintrag 1).</p>
         </div>
         
         {/* Pass a key so React completely remounts the component when switching tabs */}
